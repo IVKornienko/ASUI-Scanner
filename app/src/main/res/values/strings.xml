@@ -10,4 +10,6 @@
     <string name="text_from_scanner">From scanner</string>
     <string name="text_barcode">Barcode</string>
     <string name="text_read_barcode">Read barcode</string>
+    <string name="turn_on_flashlight">Turn On FlashLight</string>
+    <string name="turn_off_flashlight">Turn Off FlashLight</string>
 </resources>

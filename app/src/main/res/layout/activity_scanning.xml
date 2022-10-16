@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ScanningActivity">
+
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/zxing_barcode_scanner"
+        app:zxing_use_texture_view="false"
+        app:zxing_preview_scaling_strategy="fitXY">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_margin="40dp"
+            android:id="@+id/switchFlashlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="off"
+            android:clickable="true"
+            android:onClick="switchFlashlight"
+            android:src="@drawable/ic_flashlight_on"
+            android:layout_gravity="bottom|end"
+            android:focusable="true"
+            android:contentDescription="@null" />
+    </com.journeyapps.barcodescanner.DecoratedBarcodeView>
+
+
+</RelativeLayout>
