@@ -20,11 +20,11 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
         if (result.contents == null) {
             val originalIntent = result.originalIntent
             if (originalIntent == null) {
-                Toast.makeText(context, "Cancelled", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, getString(R.string.scanning_cancelled), Toast.LENGTH_LONG).show()
             } else if (originalIntent.hasExtra(Intents.Scan.MISSING_CAMERA_PERMISSION)) {
                 Toast.makeText(
                     context,
-                    "Cancelled due to missing camera permission",
+                    getString(R.string.scanning_not_permissions),
                     Toast.LENGTH_LONG
                 ).show()
             }

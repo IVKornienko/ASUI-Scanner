@@ -10,6 +10,6 @@
     <string name="text_from_scanner">From scanner</string>
     <string name="text_barcode">Barcode</string>
     <string name="text_read_barcode">Read barcode</string>
-    <string name="turn_on_flashlight">Turn On FlashLight</string>
-    <string name="turn_off_flashlight">Turn Off FlashLight</string>
+    <string name="scanning_cancelled">Cancelled</string>
+    <string name="scanning_not_permissions">Cancelled due to missing camera permission</string>
 </resources>
