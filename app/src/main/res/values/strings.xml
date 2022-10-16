@@ -7,4 +7,7 @@
     <string name="tab_label_history">History</string>
     <string name="tab_label_scanner">Scanner</string>
     <string name="tab_label_settings">Settings</string>
+    <string name="text_from_scanner">From scanner</string>
+    <string name="text_barcode">Barcode</string>
+    <string name="text_read_barcode">Read barcode</string>
 </resources>
