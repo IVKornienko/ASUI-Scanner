@@ -2,7 +2,9 @@
     <string name="app_name">ASUI Scanner</string>
     <string name="logo_1c_1_8_3">1С 8.3</string>
     <string name="logo_barcode_scanner">Barcode Scanner</string>
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="tab_label_history">History</string>
+    <string name="tab_label_scanner">Scanner</string>
+    <string name="tab_label_settings">Settings</string>
 </resources>

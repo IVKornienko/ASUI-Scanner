@@ -14,10 +14,8 @@
         tools:targetApi="31">
         <activity
             android:name=".SplashScreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
-            android:label="@string/title_activity_splash_screen"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+            android:theme="@style/SplashActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -30,7 +28,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true"
+             />
     </application>
 
 </manifest>
