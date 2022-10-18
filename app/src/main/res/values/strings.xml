@@ -12,4 +12,17 @@
     <string name="text_read_barcode">Read barcode</string>
     <string name="scanning_cancelled">Cancelled</string>
     <string name="scanning_not_permissions">Cancelled due to missing camera permission</string>
+    <string name="text_test_connection">Test Connection</string>
+    <string name="text_header_service_1c">Service 1C</string>
+    <string name="hint_settings_url_service_1c">URL Service 1C</string>
+    <string name="hint_settings_login_service_1c">Login Service 1C</string>
+    <string name="hint_settings_password_service_1c">Password Service 1C</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_save">Save</string>
+    <string name="status_test_connection_success">Status test: Success</string>
+    <string name="status_test_connection_failed">Status test: Failed</string>
+    <string name="set_default_settings">Set default Settings 1C</string>
+    <string name="settings_saved">Settings saved</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

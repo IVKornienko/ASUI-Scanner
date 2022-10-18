@@ -1,59 +1,158 @@
 package com.ivkornienko.asui.scanner
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
+import com.ivkornienko.asui.scanner.databinding.FragmentSettingsBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private lateinit var binding: FragmentSettingsBinding
+    private val viewModel: SettingsViewModel by viewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentSettingsBinding.bind(view)
+
+        createMenu()
+        setListeners()
+        observeViewModels()
+    }
+
+    private fun createMenu() {
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.settings_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.item_defaultSettings -> {
+                        viewModel.clearConnectionSettings()
+                        return false
+                    }
+                }
+                return true
+            }
+        }, viewLifecycleOwner)
+    }
+
+    private fun setListeners() {
+        binding.buttonTestConnection.setOnClickListener {
+            val url = binding.etBaseURL.text.toString()
+            val login = binding.etLogin1C.text.toString()
+            val password = binding.etPassword1C.text.toString()
+
+            viewModel.testConnection(url, login, password)
+        }
+
+        binding.buttonCancel.setOnClickListener {
+            NavHostFragment.findNavController(this).popBackStack()
+        }
+
+        binding.buttonSave.setOnClickListener {
+            val url = binding.etBaseURL.text.toString()
+            val login = binding.etLogin1C.text.toString()
+            val password = binding.etPassword1C.text.toString()
+
+            viewModel.saveConnectionSettings(url, login, password)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
-    }
+    private fun observeViewModels() {
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SettingsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        viewModel.state.observe(viewLifecycleOwner) {
+            val colorGreen = ContextCompat.getColor(
+                requireContext(),
+                android.R.color.holo_green_light
+            )
+            val colorRed = ContextCompat.getColor(
+                requireContext(),
+                android.R.color.holo_red_light
+            )
+
+            onDefaultViews()
+            when (it) {
+                is SettingsViewModel.EmptyURL -> {
+                    binding.tilBaseURL.error = "URL is empty"
+                }
+                is SettingsViewModel.EmptyLogin -> {
+                    binding.tilLogin1C.error = "Login is empty"
+                }
+                is SettingsViewModel.EmptyPassword -> {
+                    binding.tilPassword1C.error = "Password is empty"
+                }
+                is SettingsViewModel.Error -> {
+                    if (it.error.isNotBlank()) {
+                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                    }
+                    binding.tvStatusTest.text = getString(R.string.status_test_connection_failed)
+                    binding.tvStatusTest.visibility = View.VISIBLE
+                    binding.tvStatusTest.setTextColor(colorRed)
+                    binding.buttonSave.isEnabled = false
+                }
+                is SettingsViewModel.Progress -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.tvStatusTest.visibility = View.INVISIBLE
+                    binding.tilBaseURL.isEnabled = false
+                    binding.tilLogin1C.isEnabled = false
+                    binding.tilPassword1C.isEnabled = false
+
+                    binding.buttonSave.isEnabled = false
+                    binding.buttonCancel.isEnabled = false
+                    binding.buttonTestConnection.isEnabled = false
+                }
+                is SettingsViewModel.Success -> {
+                    binding.tvStatusTest.text = getString(R.string.status_test_connection_success)
+                    binding.tvStatusTest.setTextColor(colorGreen)
+                    binding.tvStatusTest.visibility = View.VISIBLE
+                    binding.buttonSave.isEnabled = true
+                }
+                SettingsViewModel.Saved -> {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.settings_saved),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
+        }
+
+        viewModel.getSettings.observeEvent(viewLifecycleOwner) {
+            binding.etBaseURL.setText(it.url)
+            binding.etLogin1C.setText(it.login)
+            binding.etPassword1C.setText(it.password)
+        }
+    }
+
+    private fun onDefaultViews() {
+        binding.progressBar.visibility = View.GONE
+
+        binding.tilBaseURL.error = null
+        binding.tilLogin1C.error = null
+        binding.tilPassword1C.error = null
+
+        binding.tilBaseURL.isEnabled = true
+        binding.tilLogin1C.isEnabled = true
+        binding.tilPassword1C.isEnabled = true
+
+        binding.buttonSave.isEnabled = true
+        binding.buttonCancel.isEnabled = true
+        binding.buttonTestConnection.isEnabled = true
+
+        binding.tvStatusTest.visibility = View.INVISIBLE
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.clearError()
     }
 }
