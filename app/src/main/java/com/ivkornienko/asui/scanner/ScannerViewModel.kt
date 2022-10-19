@@ -22,7 +22,7 @@ class ScannerViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             try {
                 delay(1000)
-                val result = ProductInfoRepositoryImpl(getApplication()).getInfoByBarcode(barcode)
+                val result = ProductInfoRepositoryImpl(AppSettingSharedPreferences(getApplication())).getInfoByBarcode(barcode)
                 processResult(result)
             } catch (e: Exception) {
                 processOtherSystemExceptions(e.message.toString())

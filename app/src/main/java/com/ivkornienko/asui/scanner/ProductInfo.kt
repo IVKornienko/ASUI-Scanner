@@ -18,7 +18,7 @@ data class ProductInfo(
     val operationDate: String = "",
     val organizationName: String = "",
     val storeName: String = "",
-    val dateInvent: String = "",
+    val inventDate: String = "",
     val inOtherInv: Boolean = false,
     val hasChildrenInv: Boolean = false,
     val inAsui: Boolean = false

@@ -1,5 +1,6 @@
-package com.ivkornienko.asui.scanner
+package com.ivkornienko.asui.scanner.network
 
+import com.ivkornienko.asui.scanner.TestResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 

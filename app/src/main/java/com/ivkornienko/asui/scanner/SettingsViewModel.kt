@@ -23,7 +23,9 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
                 delay(3000)
                 val settings = ApiSettings(url, login, password)
                 val result =
-                    SettingsRepositoryImpl(getApplication()).testConnectionSettings(settings)
+                    SettingsRepositoryImpl(AppSettingSharedPreferences(getApplication())).testConnectionSettings(
+                        settings
+                    )
                 processResultTextField(result)
             } catch (e: Exception) {
                 processOtherSystemExceptions(e.message.toString())
@@ -37,14 +39,16 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             delay(1000)
             val settings = ApiSettings(url, login, password)
-            SettingsRepositoryImpl(getApplication()).saveConnectionSettings(settings)
+            SettingsRepositoryImpl(AppSettingSharedPreferences(getApplication())).saveConnectionSettings(
+                settings
+            )
             _state.value = Saved
         }
     }
 
     fun clearConnectionSettings() {
         viewModelScope.launch {
-            SettingsRepositoryImpl(getApplication()).clearConnectionSettings()
+            SettingsRepositoryImpl(AppSettingSharedPreferences(getApplication())).clearConnectionSettings()
             loadConnectionSettings()
         }
     }
@@ -56,7 +60,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     fun loadConnectionSettings() {
         viewModelScope.launch {
             _getSettings.publishEvent(
-                SettingsRepositoryImpl(getApplication()).loadConnectionSettings()
+                SettingsRepositoryImpl(AppSettingSharedPreferences(getApplication())).loadConnectionSettings()
             )
         }
     }

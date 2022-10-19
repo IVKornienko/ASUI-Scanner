@@ -1,6 +1,7 @@
-package com.ivkornienko.asui.scanner
+package com.ivkornienko.asui.scanner.network
 
 import com.google.gson.annotations.SerializedName
+import com.ivkornienko.asui.scanner.ProductInfo
 
 data class ProductInfoResponse(
     @SerializedName("error")
@@ -40,7 +41,7 @@ data class ProductInfoResponse(
     val storeName: String?,
 
     @SerializedName("date_invent")
-    val dateInvent: String?,
+    val inventDate: String?,
 
     @SerializedName("in_other_inv")
     val inOtherInv: Boolean?,
@@ -65,7 +66,7 @@ data class ProductInfoResponse(
             operationDate = operationDate ?: "",
             organizationName = organizationName ?: "",
             storeName = storeName ?: "",
-            dateInvent = dateInvent ?: "",
+            inventDate = inventDate ?: "",
             inOtherInv = inOtherInv ?: false,
             hasChildrenInv = hasChildrenInv ?: false,
             inAsui = inAsui ?: false

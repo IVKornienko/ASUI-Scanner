@@ -86,7 +86,9 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
                     val productInfo = it.result
                     openDetailFragment(productInfo)
                 }
-                is ScannerViewModel.Empty -> {}
+                is ScannerViewModel.Empty -> {
+                    binding.etBarcode.setText("")
+                }
             }
         }
     }

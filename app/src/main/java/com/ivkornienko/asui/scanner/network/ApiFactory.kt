@@ -1,13 +1,13 @@
-package com.ivkornienko.asui.scanner
+package com.ivkornienko.asui.scanner.network
 
-import android.content.Context
+import com.ivkornienko.asui.scanner.ApiSettings
+import com.ivkornienko.asui.scanner.BasicAuthInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiFactory(
-    private val context: Context,
-    private val apiSettings: ApiSettings
+    apiSettings: ApiSettings
 ) {
     private val client = OkHttpClient.Builder()
         .addInterceptor(
@@ -23,5 +23,5 @@ class ApiFactory(
         .baseUrl(apiSettings.url)
         .build()
 
-    val apiService = retrofit.create(ApiService::class.java)
+    val apiService: ApiService = retrofit.create(ApiService::class.java)
 }
