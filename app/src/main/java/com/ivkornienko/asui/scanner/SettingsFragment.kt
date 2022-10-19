@@ -22,6 +22,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSettingsBinding.bind(view)
 
+        viewModel.loadConnectionSettings()
+
         createMenu()
         setListeners()
         observeViewModels()
@@ -87,9 +89,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                 is SettingsViewModel.EmptyLogin -> {
                     binding.tilLogin1C.error = "Login is empty"
                 }
-                is SettingsViewModel.EmptyPassword -> {
-                    binding.tilPassword1C.error = "Password is empty"
-                }
                 is SettingsViewModel.Error -> {
                     if (it.error.isNotBlank()) {
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
@@ -123,6 +122,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+                SettingsViewModel.Empty -> {}
             }
         }
 
@@ -138,13 +138,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
         binding.tilBaseURL.error = null
         binding.tilLogin1C.error = null
-        binding.tilPassword1C.error = null
 
         binding.tilBaseURL.isEnabled = true
         binding.tilLogin1C.isEnabled = true
         binding.tilPassword1C.isEnabled = true
 
-        binding.buttonSave.isEnabled = true
+        binding.buttonSave.isEnabled = false
         binding.buttonCancel.isEnabled = true
         binding.buttonTestConnection.isEnabled = true
 
@@ -153,6 +152,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     override fun onPause() {
         super.onPause()
-        viewModel.clearError()
+        viewModel.clear_state()
     }
 }

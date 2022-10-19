@@ -6,32 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ScannerFragment">
 
-    <TextView
-        android:id="@+id/textView_scanner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:gravity="center"
-        android:paddingBottom="16dp"
-        android:text="@string/tab_label_scanner"
-        android:textSize="38sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_barcode"
+        android:id="@+id/til_barcode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintEnd_toStartOf="@+id/button_getFromScanner"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView_scanner"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.6">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText_barcode"
+            android:id="@+id/et_barcode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/text_barcode"
@@ -47,10 +35,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="@string/text_from_scanner"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout_barcode"
+        app:layout_constraintBottom_toBottomOf="@+id/til_barcode"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout_barcode"
-        app:layout_constraintTop_toTopOf="@id/textInputLayout_barcode" />
+        app:layout_constraintStart_toEndOf="@+id/til_barcode"
+        app:layout_constraintTop_toTopOf="@id/til_barcode" />
 
     <Button
         android:id="@+id/button_readBarcode"
@@ -59,5 +47,17 @@
         android:layout_margin="20dp"
         android:text="@string/text_read_barcode"
         app:layout_constraintTop_toBottomOf="@id/button_getFromScanner" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

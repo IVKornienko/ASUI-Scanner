@@ -15,20 +15,15 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     private val _getSettings = MutableLiveData<Event<ApiSettings>>()
     val getSettings = _getSettings.share()
 
-    init {
-        loadConnectionSettings()
-    }
-
     fun testConnection(url: String, login: String, password: String) {
         _state.value = Progress
-        checkEmptyFields(url, login, password)
+        checkEmptyFields(url, login)
         viewModelScope.launch {
             try {
                 delay(3000)
                 val settings = ApiSettings(url, login, password)
                 val result =
                     SettingsRepositoryImpl(getApplication()).testConnectionSettings(settings)
-                _state.value = if (result) Success else Error("")
                 processResultTextField(result)
             } catch (e: Exception) {
                 processOtherSystemExceptions(e.message.toString())
@@ -38,7 +33,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     fun saveConnectionSettings(url: String, login: String, password: String) {
         _state.value = Progress
-        checkEmptyFields(url, login, password)
+        checkEmptyFields(url, login)
         viewModelScope.launch {
             delay(1000)
             val settings = ApiSettings(url, login, password)
@@ -54,13 +49,19 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun clearError() {
-        if (_state.value is Error) {
-            processOtherSystemExceptions("")
+    fun clear_state() {
+        _state.value = Empty
+    }
+
+    fun loadConnectionSettings() {
+        viewModelScope.launch {
+            _getSettings.publishEvent(
+                SettingsRepositoryImpl(getApplication()).loadConnectionSettings()
+            )
         }
     }
 
-    private fun checkEmptyFields(url: String, login: String, password: String) {
+    private fun checkEmptyFields(url: String, login: String) {
         if (url.isBlank()) {
             _state.value = EmptyURL
             return
@@ -68,18 +69,6 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         if (login.isBlank()) {
             _state.value = EmptyLogin
             return
-        }
-        if (password.isBlank()) {
-            _state.value = EmptyPassword
-            return
-        }
-    }
-
-    private fun loadConnectionSettings() {
-        viewModelScope.launch {
-            _getSettings.publishEvent(
-                SettingsRepositoryImpl(getApplication()).loadConnectionSettings()
-            )
         }
     }
 
@@ -92,10 +81,10 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     }
 
     sealed class State
+    object Empty : State()
     object Saved : State()
     object EmptyURL : State()
     object EmptyLogin : State()
-    object EmptyPassword : State()
     object Progress : State()
     object Success : State()
     class Error(

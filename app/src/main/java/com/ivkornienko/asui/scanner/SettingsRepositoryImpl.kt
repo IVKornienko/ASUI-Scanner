@@ -1,6 +1,9 @@
 package com.ivkornienko.asui.scanner
 
 import android.content.Context
+import com.ivkornienko.asui.scanner.ApiSettings.Companion.DEFAULT_LOGIN_SERVICE_1C
+import com.ivkornienko.asui.scanner.ApiSettings.Companion.DEFAULT_PASSWORD_SERVICE_1C
+import com.ivkornienko.asui.scanner.ApiSettings.Companion.DEFAULT_URL_SERVICE_1C
 
 class SettingsRepositoryImpl(
     private val context: Context
@@ -16,9 +19,9 @@ class SettingsRepositoryImpl(
         val apiSettings = AppSettingSharedPreferences(context)
 
         return ApiSettings(
-            apiSettings.getURLService1C(),
-            apiSettings.getLoginService1C(),
-            apiSettings.getPasswordService1C()
+            apiSettings.getURLService1C().ifBlank { DEFAULT_URL_SERVICE_1C },
+            apiSettings.getLoginService1C().ifBlank { DEFAULT_LOGIN_SERVICE_1C },
+            apiSettings.getPasswordService1C().ifBlank { DEFAULT_PASSWORD_SERVICE_1C },
         )
     }
 

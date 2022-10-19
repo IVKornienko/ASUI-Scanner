@@ -10,7 +10,13 @@ interface ApiService {
         @Path(QUERY_TEST_STRING) testString: String
     ): TestResponse
 
+    @GET("info_barcode/{barcode}/")
+    suspend fun get_infoByBarcode(
+        @Path(QUERY_BARCODE) barcode: String
+    ): ProductInfoResponse
+
     companion object {
         private const val QUERY_TEST_STRING = "test_string"
+        private const val QUERY_BARCODE = "barcode"
     }
 }

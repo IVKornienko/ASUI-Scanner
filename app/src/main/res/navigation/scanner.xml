@@ -9,5 +9,14 @@
         android:id="@+id/scannerFragment"
         android:name="com.ivkornienko.asui.scanner.ScannerFragment"
         android:label="@string/tab_label_scanner"
-        tools:layout="@layout/fragment_scanner" />
+        tools:layout="@layout/fragment_scanner" >
+    <action
+        android:id="@+id/scannerFragment_to_infoByBarcodeFragment"
+        app:destination="@id/infoByBarcodeFragment" >
+        <argument
+            android:name="barcode"
+            app:argType="com.ivkornienko.asui.scanner.ProductInfo" />
+        </action>
+    </fragment>
+
 </navigation>

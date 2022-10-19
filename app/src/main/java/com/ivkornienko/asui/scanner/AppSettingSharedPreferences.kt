@@ -20,28 +20,25 @@ class AppSettingSharedPreferences(appContext: Context) : AppSettings {
     }
 
     override fun getURLService1C(): String {
-        return sharedPreferences.getString(PREFERENCE_URL_SERVICE1C, ApiSettings().url)
+        return sharedPreferences.getString(PREFERENCE_URL_SERVICE1C, "")
             ?: throw java.lang.RuntimeException()
     }
 
     override fun getLoginService1C(): String {
-        return sharedPreferences.getString(PREFERENCE_LOGIN_SERVICE1C, ApiSettings().login)
+        return sharedPreferences.getString(PREFERENCE_LOGIN_SERVICE1C, "")
             ?: throw java.lang.RuntimeException()
     }
 
     override fun getPasswordService1C(): String {
         return sharedPreferences.getString(
-            PREFERENCE_PASSWORD_SERVICE1C,
-            ApiSettings().password
+            PREFERENCE_PASSWORD_SERVICE1C, ""
         ) ?: throw java.lang.RuntimeException()
     }
 
     private fun setPreference(name: String, value: String?) {
         val editor = sharedPreferences.edit()
-        if (value == null)
-            editor.remove(name)
-        else
-            editor.putString(name, value)
+        if (value == null) editor.remove(name)
+        else editor.putString(name, value)
         editor.apply()
     }
 
