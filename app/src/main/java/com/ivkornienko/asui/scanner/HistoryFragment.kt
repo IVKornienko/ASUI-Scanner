@@ -12,16 +12,30 @@ import com.ivkornienko.asui.scanner.databinding.FragmentHistoryBinding
 class HistoryFragment : Fragment(R.layout.fragment_history) {
 
     private val viewModel: HistoryViewModel by viewModels()
-    private lateinit var binding: FragmentHistoryBinding
+
+    private var _binding: FragmentHistoryBinding? = null
+    private val binding: FragmentHistoryBinding
+        get() = _binding ?: throw RuntimeException("FragmentHistoryBinding is Nullable")
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentHistoryBinding.bind(view)
-
         createMenu()
-
         setupRecyclerView()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun createMenu() {

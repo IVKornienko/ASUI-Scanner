@@ -12,7 +12,7 @@
     <fragment
         android:id="@+id/infoByBarcodeFragment"
         android:name="com.ivkornienko.asui.scanner.ProductInfoFragment"
-        android:label="fragment_info_by_barcode"
+        android:label="@string/label_information"
         tools:layout="@layout/fragment_product_info" >
         <argument
             android:name="productInfoId"

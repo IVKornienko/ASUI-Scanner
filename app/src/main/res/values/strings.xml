@@ -44,4 +44,9 @@
     <string name="text_keep_history_scanning">Keep History Scanning</string>
     <string name="text_other_settings">Other Settings</string>
     <string name="text_date_time_scan">Date/Time Scan:</string>
+    <string name="label_information">Information</string>
+    <string name="error_empty_login">Login is empty</string>
+    <string name="error_empty_url">URL is empty</string>
+    <string name="text_true">Да</string>
+    <string name="text_false">Нет</string>
 </resources>

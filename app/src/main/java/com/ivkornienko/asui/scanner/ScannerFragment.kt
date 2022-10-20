@@ -1,7 +1,9 @@
 package com.ivkornienko.asui.scanner
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -17,7 +19,10 @@ import kotlinx.coroutines.launch
 
 class ScannerFragment : Fragment(R.layout.fragment_scanner) {
 
-    private lateinit var binding: FragmentScannerBinding
+    private var _binding: FragmentScannerBinding? = null
+    private val binding: FragmentScannerBinding
+        get() = _binding ?: throw RuntimeException("FragmentScannerBinding is Nullable")
+
     private val viewModel: ScannerViewModel by viewModels()
 
     private val barcodeLauncher = registerForActivityResult(
@@ -38,18 +43,25 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
         } else {
             binding.etBarcode.setText(result.contents)
             viewModel.getInfoByBarcode(result.contents)
-
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentScannerBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding = FragmentScannerBinding.bind(view)
-
-        binding.etBarcode.addTextChangedListener {
-            binding.tilBarcode.error = null
-        }
 
         setListeners()
         observeViewModels()
@@ -67,6 +79,10 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
         binding.buttonReadBarcode.setOnClickListener {
             val barcode = binding.etBarcode.text.toString()
             viewModel.getInfoByBarcode(barcode)
+        }
+
+        binding.etBarcode.addTextChangedListener {
+            binding.tilBarcode.error = null
         }
     }
 

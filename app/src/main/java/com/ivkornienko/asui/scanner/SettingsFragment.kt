@@ -1,10 +1,7 @@
 package com.ivkornienko.asui.scanner
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
@@ -18,21 +15,29 @@ import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
-    private lateinit var binding: FragmentSettingsBinding
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding: FragmentSettingsBinding
+        get() = _binding ?: throw RuntimeException("FragmentSettingsBinding is Nullable")
+
     private val viewModel: SettingsViewModel by viewModels()
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentSettingsBinding.bind(view)
-
-        binding.etBaseURL.addTextChangedListener {
-            binding.buttonSave.isEnabled = false
-            binding.tilBaseURL.error = null
-        }
-        binding.etLogin1C.addTextChangedListener {
-            binding.buttonSave.isEnabled = false
-            binding.tilLogin1C.error = null
-        }
 
         createMenu()
         setListeners()
@@ -79,8 +84,16 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
             viewModel.saveConnectionSettings(url, login, password)
         }
-    }
 
+        binding.etBaseURL.addTextChangedListener {
+            binding.buttonSave.isEnabled = false
+            binding.tilBaseURL.error = null
+        }
+        binding.etLogin1C.addTextChangedListener {
+            binding.buttonSave.isEnabled = false
+            binding.tilLogin1C.error = null
+        }
+    }
 
     private fun observeViewModels() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -105,10 +118,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
         when (state) {
             is SettingsViewModel.EmptyLogin -> {
-                binding.tilLogin1C.error = "Login is empty"
+                binding.tilLogin1C.error = getString(R.string.error_empty_login)
             }
             is SettingsViewModel.EmptyURL -> {
-                binding.tilBaseURL.error = "URL is empty"
+                binding.tilBaseURL.error = getString(R.string.error_empty_url)
             }
             is SettingsViewModel.Error -> {
                 if (state.error.isNotBlank()) {
