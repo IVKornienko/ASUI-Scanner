@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.ivkornienko.asui.scanner.SettingsFragment"
+        android:name="com.ivkornienko.asui.scanner.presentation.settings.SettingsFragment"
         android:label="@string/tab_label_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

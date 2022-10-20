@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.ivkornienko.asui.scanner.HistoryFragment"
+        android:name="com.ivkornienko.asui.scanner.presentation.history.HistoryFragment"
         android:label="@string/tab_label_history"
         tools:layout="@layout/fragment_history">
     <action
