@@ -2,30 +2,35 @@ package com.ivkornienko.asui.scanner
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _state = MutableLiveData<State>()
-    val state = _state.share()
+    private val _state: MutableStateFlow<State?> = MutableStateFlow(null)
+    val state: StateFlow<State?>
+        get() = _state
 
-    private val _getSettings = MutableLiveData<Event<ApiSettings>>()
-    val getSettings = _getSettings.share()
+    fun setStateValue(state: State?) {
+        _state.value = state
+    }
+
+    private val repositoryImpl =
+        SettingsRepositoryImpl(AppSettingSharedPreferences(getApplication()))
 
     fun testConnection(url: String, login: String, password: String) {
         _state.value = Progress
-        checkEmptyFields(url, login)
+        if (checkEmptyFields(url, login)) return
+
         viewModelScope.launch {
             try {
                 delay(3000)
                 val settings = ApiSettings(url, login, password)
-                val result =
-                    SettingsRepositoryImpl(AppSettingSharedPreferences(getApplication())).testConnectionSettings(
-                        settings
-                    )
+                val result = repositoryImpl.testConnectionSettings(
+                    settings
+                )
                 processResultTextField(result)
             } catch (e: Exception) {
                 processOtherSystemExceptions(e.message.toString())
@@ -35,45 +40,44 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     fun saveConnectionSettings(url: String, login: String, password: String) {
         _state.value = Progress
-        checkEmptyFields(url, login)
+        if (checkEmptyFields(url, login)) return
+
         viewModelScope.launch {
             delay(1000)
             val settings = ApiSettings(url, login, password)
-            SettingsRepositoryImpl(AppSettingSharedPreferences(getApplication())).saveConnectionSettings(
+            repositoryImpl.saveConnectionSettings(
                 settings
             )
             _state.value = Saved
         }
     }
 
-    fun clearConnectionSettings() {
+    fun defaultConnectionSettings() {
+        _state.value = Progress
         viewModelScope.launch {
-            SettingsRepositoryImpl(AppSettingSharedPreferences(getApplication())).clearConnectionSettings()
-            loadConnectionSettings()
+            val (url, login, password) = repositoryImpl.defaultConnectionSettings()
+            _state.value = SetSettings(url, login, password)
         }
-    }
-
-    fun clear_state() {
-        _state.value = Empty
     }
 
     fun loadConnectionSettings() {
+        _state.value = Progress
         viewModelScope.launch {
-            _getSettings.publishEvent(
-                SettingsRepositoryImpl(AppSettingSharedPreferences(getApplication())).loadConnectionSettings()
-            )
+            val (url, login, password) = repositoryImpl.loadConnectionSettings()
+            _state.value = SetSettings(url, login, password)
         }
     }
 
-    private fun checkEmptyFields(url: String, login: String) {
+    private fun checkEmptyFields(url: String, login: String): Boolean {
         if (url.isBlank()) {
             _state.value = EmptyURL
-            return
+            return true
         }
         if (login.isBlank()) {
             _state.value = EmptyLogin
-            return
+            return true
         }
+        return false
     }
 
     private fun processResultTextField(result: Boolean) {
@@ -85,13 +89,18 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     }
 
     sealed class State
-    object Empty : State()
     object Saved : State()
     object EmptyURL : State()
     object EmptyLogin : State()
     object Progress : State()
     object Success : State()
     class Error(
-        var error: String
+        val error: String
+    ) : State()
+
+    class SetSettings(
+        val url: String,
+        val login: String,
+        val password: String
     ) : State()
 }

@@ -11,12 +11,12 @@
 
     <fragment
         android:id="@+id/infoByBarcodeFragment"
-        android:name="com.ivkornienko.asui.scanner.InfoByBarcodeFragment"
+        android:name="com.ivkornienko.asui.scanner.ProductInfoFragment"
         android:label="fragment_info_by_barcode"
-        tools:layout="@layout/fragment_info_by_barcode" >
+        tools:layout="@layout/fragment_product_info" >
         <argument
-            android:name="barcode"
-            app:argType="com.ivkornienko.asui.scanner.ProductInfo" />
+            android:name="productInfoId"
+            app:argType="long" />
     </fragment>
 
 </navigation>

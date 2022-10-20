@@ -7,8 +7,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".InfoByBarcodeFragment">
+        android:layout_height="wrap_content"
+        tools:context=".ProductInfoFragment">
 
         <TextView
             android:id="@+id/tvFullName"
@@ -387,7 +387,7 @@
                     android:layout_marginTop="10dp"
                     android:textColor="#000"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toEndOf="@id/tvInventDateLabel"
+                    app:layout_constraintStart_toStartOf="@id/tvDateTimeScan"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="10.01.2021" />
 
@@ -419,7 +419,7 @@
                     android:layout_marginTop="10dp"
                     android:textColor="#000"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/tvInventDate"
+                    app:layout_constraintStart_toStartOf="@id/tvDateTimeScan"
                     app:layout_constraintTop_toTopOf="@id/separator31"
                     tools:text="в наличии" />
 
@@ -451,9 +451,42 @@
                     android:layout_marginTop="10dp"
                     android:textColor="#000"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/tvInventDate"
+                    app:layout_constraintStart_toStartOf="@id/tvDateTimeScan"
                     app:layout_constraintTop_toTopOf="@id/separator32"
                     tools:text="True" />
+
+                <View
+                    android:id="@+id/separator33"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#63000000"
+                    app:layout_constraintTop_toBottomOf="@id/tvInAsui" />
+
+                <TextView
+                    android:id="@+id/tvDateTimeScanLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/text_date_time_scan"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvDateTimeScan"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvDateTimeScan" />
+
+                <TextView
+                    android:id="@+id/tvDateTimeScan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="8dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tvDateTimeScanLabel"
+                    app:layout_constraintTop_toTopOf="@id/separator33"
+                    tools:text="12.01.2021" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

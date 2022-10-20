@@ -11,8 +11,10 @@ import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.ivkornienko.asui.scanner.databinding.FragmentSettingsBinding
+import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
@@ -23,18 +25,20 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSettingsBinding.bind(view)
 
-        viewModel.loadConnectionSettings()
-
         binding.etBaseURL.addTextChangedListener {
             binding.buttonSave.isEnabled = false
+            binding.tilBaseURL.error = null
         }
         binding.etLogin1C.addTextChangedListener {
             binding.buttonSave.isEnabled = false
+            binding.tilLogin1C.error = null
         }
 
         createMenu()
         setListeners()
         observeViewModels()
+
+        if (savedInstanceState == null) viewModel.loadConnectionSettings()
     }
 
     private fun createMenu() {
@@ -46,7 +50,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.item_defaultSettings -> {
-                        viewModel.clearConnectionSettings()
+                        viewModel.defaultConnectionSettings()
                         return false
                     }
                 }
@@ -77,67 +81,73 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         }
     }
 
+
     private fun observeViewModels() {
-
-        viewModel.state.observe(viewLifecycleOwner) {
-            val colorGreen = ContextCompat.getColor(
-                requireContext(),
-                android.R.color.holo_green_light
-            )
-            val colorRed = ContextCompat.getColor(
-                requireContext(),
-                android.R.color.holo_red_light
-            )
-
-            onDefaultViews()
-            when (it) {
-                is SettingsViewModel.EmptyURL -> {
-                    binding.tilBaseURL.error = "URL is empty"
-                }
-                is SettingsViewModel.EmptyLogin -> {
-                    binding.tilLogin1C.error = "Login is empty"
-                }
-                is SettingsViewModel.Error -> {
-                    if (it.error.isNotBlank()) {
-                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-                    }
-                    binding.tvStatusTest.text = getString(R.string.status_test_connection_failed)
-                    binding.tvStatusTest.visibility = View.VISIBLE
-                    binding.tvStatusTest.setTextColor(colorRed)
-                    binding.buttonSave.isEnabled = false
-                }
-                is SettingsViewModel.Progress -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.tvStatusTest.visibility = View.INVISIBLE
-                    binding.tilBaseURL.isEnabled = false
-                    binding.tilLogin1C.isEnabled = false
-                    binding.tilPassword1C.isEnabled = false
-
-                    binding.buttonSave.isEnabled = false
-                    binding.buttonCancel.isEnabled = false
-                    binding.buttonTestConnection.isEnabled = false
-                }
-                is SettingsViewModel.Success -> {
-                    binding.tvStatusTest.text = getString(R.string.status_test_connection_success)
-                    binding.tvStatusTest.setTextColor(colorGreen)
-                    binding.tvStatusTest.visibility = View.VISIBLE
-                    binding.buttonSave.isEnabled = true
-                }
-                SettingsViewModel.Saved -> {
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.settings_saved),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                SettingsViewModel.Empty -> {}
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.state.collectOnce(viewModel::setStateValue) {
+                updateUI(it)
             }
         }
+    }
 
-        viewModel.getSettings.observeEvent(viewLifecycleOwner) {
-            binding.etBaseURL.setText(it.url)
-            binding.etLogin1C.setText(it.login)
-            binding.etPassword1C.setText(it.password)
+    private fun updateUI(state: SettingsViewModel.State?) {
+        if (state == null) return
+        val colorGreen = ContextCompat.getColor(
+            requireContext(),
+            android.R.color.holo_green_light
+        )
+        val colorRed = ContextCompat.getColor(
+            requireContext(),
+            android.R.color.holo_red_light
+        )
+
+        onDefaultViews()
+
+        when (state) {
+            is SettingsViewModel.EmptyLogin -> {
+                binding.tilLogin1C.error = "Login is empty"
+            }
+            is SettingsViewModel.EmptyURL -> {
+                binding.tilBaseURL.error = "URL is empty"
+            }
+            is SettingsViewModel.Error -> {
+                if (state.error.isNotBlank()) {
+                    Toast.makeText(requireContext(), state.error, Toast.LENGTH_SHORT).show()
+                }
+                binding.tvStatusTest.text = getString(R.string.status_test_connection_failed)
+                binding.tvStatusTest.visibility = View.VISIBLE
+                binding.tvStatusTest.setTextColor(colorRed)
+                binding.buttonSave.isEnabled = false
+            }
+            is SettingsViewModel.Progress -> {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.tvStatusTest.visibility = View.INVISIBLE
+                binding.tilBaseURL.isEnabled = false
+                binding.tilLogin1C.isEnabled = false
+                binding.tilPassword1C.isEnabled = false
+
+                binding.buttonSave.isEnabled = false
+                binding.buttonCancel.isEnabled = false
+                binding.buttonTestConnection.isEnabled = false
+            }
+            is SettingsViewModel.Saved -> {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.settings_saved),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            is SettingsViewModel.Success -> {
+                binding.tvStatusTest.text = getString(R.string.status_test_connection_success)
+                binding.tvStatusTest.setTextColor(colorGreen)
+                binding.tvStatusTest.visibility = View.VISIBLE
+                binding.buttonSave.isEnabled = true
+            }
+            is SettingsViewModel.SetSettings -> {
+                binding.etBaseURL.setText(state.url)
+                binding.etLogin1C.setText(state.login)
+                binding.etPassword1C.setText(state.password)
+            }
         }
     }
 
@@ -156,10 +166,5 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         binding.buttonTestConnection.isEnabled = true
 
         binding.tvStatusTest.visibility = View.INVISIBLE
-    }
-
-    override fun onPause() {
-        super.onPause()
-        viewModel.clear_state()
     }
 }

@@ -11,4 +11,5 @@ interface AppSettings {
     fun getLoginService1C(): String
 
     fun getPasswordService1C(): String
+
 }

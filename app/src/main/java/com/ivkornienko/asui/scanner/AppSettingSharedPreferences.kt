@@ -42,6 +42,7 @@ class AppSettingSharedPreferences(appContext: Context) : AppSettings {
         editor.apply()
     }
 
+
     companion object {
         private const val PREFERENCES_NAME = "settings_Service1C"
         private const val PREFERENCE_URL_SERVICE1C = "urlService1C"

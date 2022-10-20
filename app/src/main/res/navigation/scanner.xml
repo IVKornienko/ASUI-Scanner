@@ -14,8 +14,8 @@
         android:id="@+id/scannerFragment_to_infoByBarcodeFragment"
         app:destination="@id/infoByBarcodeFragment" >
         <argument
-            android:name="barcode"
-            app:argType="com.ivkornienko.asui.scanner.ProductInfo" />
+            android:name="productInfoId"
+            app:argType="long" />
         </action>
     </fragment>
 

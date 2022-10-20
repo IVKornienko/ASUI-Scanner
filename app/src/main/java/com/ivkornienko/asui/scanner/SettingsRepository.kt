@@ -8,5 +8,5 @@ interface SettingsRepository {
 
     suspend fun saveConnectionSettings(settings: ApiSettings)
 
-    suspend fun clearConnectionSettings()
+    suspend fun defaultConnectionSettings(): ApiSettings
 }

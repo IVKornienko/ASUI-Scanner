@@ -11,7 +11,7 @@ class SettingsRepositoryImpl(
 
     override suspend fun testConnectionSettings(settings: ApiSettings): Boolean {
         val apiService = ApiFactory(settings).apiService
-        val response = apiService.test_connection(TEST_STRING)
+        val response = apiService.testConnection(TEST_STRING)
         return response.test_string == TEST_STRING
     }
 
@@ -19,7 +19,7 @@ class SettingsRepositoryImpl(
         return ApiSettings(
             appSettings.getURLService1C().ifBlank { DEFAULT_URL_SERVICE_1C },
             appSettings.getLoginService1C().ifBlank { DEFAULT_LOGIN_SERVICE_1C },
-            appSettings.getPasswordService1C().ifBlank { DEFAULT_PASSWORD_SERVICE_1C },
+            appSettings.getPasswordService1C().ifBlank { DEFAULT_PASSWORD_SERVICE_1C }
         )
     }
 
@@ -27,8 +27,13 @@ class SettingsRepositoryImpl(
         appSettings.setApiSettings(settings)
     }
 
-    override suspend fun clearConnectionSettings() {
+    override suspend fun defaultConnectionSettings(): ApiSettings {
         appSettings.clearApiSettings()
+        return ApiSettings(
+            DEFAULT_URL_SERVICE_1C,
+            DEFAULT_LOGIN_SERVICE_1C,
+            DEFAULT_PASSWORD_SERVICE_1C
+        )
     }
 
     companion object {

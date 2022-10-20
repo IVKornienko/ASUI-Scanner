@@ -2,15 +2,21 @@ package com.ivkornienko.asui.scanner
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class ScannerViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _state = MutableLiveData<State>()
-    val state = _state.share()
+    private val _state: MutableStateFlow<State?> = MutableStateFlow(null)
+    val state: StateFlow<State?>
+        get() = _state
+
+    fun setStateValue(state: State?) {
+        _state.value = state
+    }
 
     fun getInfoByBarcode(barcode: String) {
         _state.value = Progress
@@ -22,7 +28,8 @@ class ScannerViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             try {
                 delay(1000)
-                val result = ProductInfoRepositoryImpl(AppSettingSharedPreferences(getApplication())).getInfoByBarcode(barcode)
+                val appSettings = AppSettingSharedPreferences(getApplication())
+                val result = ProductInfoRepositoryImpl(getApplication()).getProductInfoId(appSettings, barcode)
                 processResult(result)
             } catch (e: Exception) {
                 processOtherSystemExceptions(e.message.toString())
@@ -30,12 +37,8 @@ class ScannerViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun clear_state() {
-        _state.value = Empty
-    }
-
-    private fun processResult(result: ProductInfo) {
-        _state.value = if (result.error.isBlank()) Success(result) else Error(result.error)
+    private fun processResult(result: Long) {
+        _state.value = Success(result)
     }
 
     private fun processOtherSystemExceptions(errorMessage: String) {
@@ -43,10 +46,8 @@ class ScannerViewModel(application: Application) : AndroidViewModel(application)
     }
 
     sealed class State
-    object Empty: State()
     object EmptyBarcode : State()
     object Progress : State()
-    class Success(val result: ProductInfo) : State()
+    class Success(val result: Long) : State()
     class Error(val error: String) : State()
-
 }

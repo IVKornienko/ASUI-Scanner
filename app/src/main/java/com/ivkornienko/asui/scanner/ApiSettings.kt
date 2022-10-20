@@ -3,7 +3,7 @@ package com.ivkornienko.asui.scanner
 data class ApiSettings (
     val url: String,
     val login: String,
-    val password: String
+    val password: String,
 ) {
 
     companion object {
