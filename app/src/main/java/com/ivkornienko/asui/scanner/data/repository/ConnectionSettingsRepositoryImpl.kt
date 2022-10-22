@@ -7,17 +7,20 @@ import com.ivkornienko.asui.scanner.domain.repository.ConnectionSettingsReposito
 import com.ivkornienko.asui.scanner.domain.usecase.connectionsettings.ReadConnectionSettingsUseCase
 import com.ivkornienko.asui.scanner.domain.usecase.connectionsettings.ResetConnectionSettingsUseCase
 import com.ivkornienko.asui.scanner.domain.usecase.connectionsettings.SaveConnectionSettingsUseCase
+import retrofit2.Retrofit
 import javax.inject.Inject
 
 class ConnectionSettingsRepositoryImpl @Inject constructor(
     private val saveConnectionSettingsUseCase: SaveConnectionSettingsUseCase,
     private val readConnectionSettingsUseCase: ReadConnectionSettingsUseCase,
     private val resetConnectionSettingsUseCase: ResetConnectionSettingsUseCase,
+    private val apiInterceptor: ApiInterceptor,
+    private val retrofitBuilder: Retrofit.Builder
 ) : ConnectionSettingsRepository {
 
     override suspend fun testConnection(settings: ApiSettings): Boolean {
-        val apiInterceptor = ApiInterceptor(settings)
-        val apiService = ApiFactory(apiInterceptor, settings).apiService
+        apiInterceptor.setInterceptor(settings)
+        val apiService = ApiFactory(retrofitBuilder, settings.url).apiService
         val response = apiService.testConnection(TEST_STRING)
         return response.test_string == TEST_STRING
     }
