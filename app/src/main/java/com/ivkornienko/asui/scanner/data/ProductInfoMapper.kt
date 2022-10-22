@@ -6,8 +6,9 @@ import com.ivkornienko.asui.scanner.data.network.ProductInfoDto
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class ProductInfoMapper {
+class ProductInfoMapper @Inject constructor() {
 
     fun mapDtoToDbModel(productInfo: ProductInfoDto) = ProductInfoDbModel(
         timeScan = System.currentTimeMillis(),

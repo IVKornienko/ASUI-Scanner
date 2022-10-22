@@ -7,9 +7,9 @@ interface ProductInfoRepository {
 
     fun getProductInfoList(): LiveData<List<ProductInfo>>
 
-    suspend fun loadProductInfoByBarcode(barcode: String): Long
+    fun getProductInfo(id: Long): LiveData<ProductInfo>
 
-    suspend fun getProductInfo(id: Long): ProductInfo
+    suspend fun loadProductInfoByBarcode(barcode: String): Long
 
     suspend fun clearHistory()
 }

@@ -1,5 +1,6 @@
 package com.ivkornienko.asui.scanner.presentation.settings
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -7,13 +8,17 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import com.ivkornienko.asui.scanner.AsuiScannerApplication
 import com.ivkornienko.asui.scanner.R
 import com.ivkornienko.asui.scanner.collectOnce
 import com.ivkornienko.asui.scanner.databinding.FragmentSettingsBinding
+import com.ivkornienko.asui.scanner.presentation.ViewModelFactory
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
@@ -21,8 +26,21 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     private val binding: FragmentSettingsBinding
         get() = _binding ?: throw RuntimeException("FragmentSettingsBinding is Nullable")
 
-    private val viewModel: SettingsViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[SettingsViewModel::class.java]
+    }
+
+    private val component by lazy {
+        (requireActivity().application as AsuiScannerApplication).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -133,6 +151,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                 binding.tvStatusTest.visibility = View.VISIBLE
                 binding.tvStatusTest.setTextColor(colorRed)
                 binding.buttonSave.isEnabled = false
+
             }
             is SettingsViewModel.Progress -> {
                 binding.progressBar.visibility = View.VISIBLE
@@ -182,4 +201,5 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
         binding.tvStatusTest.visibility = View.INVISIBLE
     }
+
 }

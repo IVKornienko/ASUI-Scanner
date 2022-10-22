@@ -28,7 +28,7 @@ class ScanningActivity : CaptureActivity() {
     }
 
     fun switchFlashlight(view: View) {
-        if ((view as FloatingActionButton).tag.equals("off")) {
+        if ((view as FloatingActionButton).tag.equals(getString(R.string.text_off))) {
             onTorchOn()
         } else {
             onTorchOff()
@@ -39,7 +39,7 @@ class ScanningActivity : CaptureActivity() {
         binding.switchFlashlight.setImageDrawable(ContextCompat.getDrawable(this,
             R.drawable.ic_flashlight_off
         ))
-        binding.switchFlashlight.tag = "on"
+        binding.switchFlashlight.tag = getString(R.string.text_on)
         binding.zxingBarcodeScanner.setTorchOn()
     }
 
@@ -47,7 +47,7 @@ class ScanningActivity : CaptureActivity() {
         binding.switchFlashlight.setImageDrawable(ContextCompat.getDrawable(this,
             R.drawable.ic_flashlight_on
         ))
-        binding.switchFlashlight.tag = "off"
+        binding.switchFlashlight.tag = getString(R.string.text_off)
         binding.zxingBarcodeScanner.setTorchOff()
     }
 

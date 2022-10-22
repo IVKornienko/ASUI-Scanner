@@ -1,32 +1,17 @@
 package com.ivkornienko.asui.scanner.presentation.scanner
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ivkornienko.asui.scanner.data.ProductInfoMapper
-import com.ivkornienko.asui.scanner.data.database.AppDatabase
-import com.ivkornienko.asui.scanner.data.repository.ProductInfoRepositoryImpl
-import com.ivkornienko.asui.scanner.data.repository.StorageConnectionSettingsRepositoryImpl
 import com.ivkornienko.asui.scanner.domain.usecase.productinfo.LoadProductInfoByBarcodeUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ScannerViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val productInfoDao = AppDatabase.getInstance(application).productInfoDao()
-    private val productInfoMapper = ProductInfoMapper()
-    private val storageConnectionSettingsRepository =
-        StorageConnectionSettingsRepositoryImpl(application)
-
-    private val repository = ProductInfoRepositoryImpl(
-        productInfoDao,
-        productInfoMapper,
-        storageConnectionSettingsRepository
-    )
-
-    private val loadProductInfoByBarcodeUseCase = LoadProductInfoByBarcodeUseCase(repository)
+class ScannerViewModel @Inject constructor(
+    private val loadProductInfoByBarcodeUseCase: LoadProductInfoByBarcodeUseCase
+) : ViewModel() {
 
     private val _state: MutableStateFlow<State?> = MutableStateFlow(null)
     val state: StateFlow<State?>

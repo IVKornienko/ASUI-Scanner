@@ -9,3 +9,5 @@ suspend fun <T> StateFlow<T?>.collectOnce(reset: (T?) -> Unit, action: (value: T
         action.invoke(it)
     }
 }
+
+

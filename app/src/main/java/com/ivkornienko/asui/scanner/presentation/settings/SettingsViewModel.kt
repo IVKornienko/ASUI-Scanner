@@ -1,10 +1,7 @@
 package com.ivkornienko.asui.scanner.presentation.settings
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ivkornienko.asui.scanner.data.repository.ConnectionSettingsRepositoryImpl
-import com.ivkornienko.asui.scanner.data.repository.StorageConnectionSettingsRepositoryImpl
 import com.ivkornienko.asui.scanner.domain.entity.ApiSettings
 import com.ivkornienko.asui.scanner.domain.usecase.connectionsettings.GetConnectionSettingsUseCase
 import com.ivkornienko.asui.scanner.domain.usecase.connectionsettings.GetDefaultConnectionSettingsUseCase
@@ -14,8 +11,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SettingsViewModel(application: Application) : AndroidViewModel(application) {
+class SettingsViewModel @Inject constructor(
+    private val getConnectionSettingsUseCase: GetConnectionSettingsUseCase,
+    private val getDefaultConnectionSettingsUseCase: GetDefaultConnectionSettingsUseCase,
+    private val setConnectionSettingsUseCase: SetConnectionSettingsUseCase,
+    private val testConnectionUseCase: TestConnectionUseCase
+) : ViewModel() {
 
     private val _state: MutableStateFlow<State?> = MutableStateFlow(null)
     val state: StateFlow<State?>
@@ -25,15 +28,15 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         _state.value = state
     }
 
-    private val storageConnectionSettingsRepository =
-        StorageConnectionSettingsRepositoryImpl(application)
-    private val repository = ConnectionSettingsRepositoryImpl(storageConnectionSettingsRepository)
-
-    private val getConnectionSettingsUseCase = GetConnectionSettingsUseCase(repository)
-    private val getDefaultConnectionSettingsUseCase =
-        GetDefaultConnectionSettingsUseCase(repository)
-    private val setConnectionSettingsUseCase = SetConnectionSettingsUseCase(repository)
-    private val testConnectionUseCase = TestConnectionUseCase(repository)
+//    private val storageConnectionSettingsRepository =
+//        StorageConnectionSettingsRepositoryImpl(context)
+//    private val repository = ConnectionSettingsRepositoryImpl(storageConnectionSettingsRepository)
+//
+//    private val getConnectionSettingsUseCase = GetConnectionSettingsUseCase(repository)
+//    private val getDefaultConnectionSettingsUseCase =
+//        GetDefaultConnectionSettingsUseCase(repository)
+//    private val setConnectionSettingsUseCase = SetConnectionSettingsUseCase(repository)
+//    private val testConnectionUseCase = TestConnectionUseCase(repository)
 
     fun testConnection(url: String, login: String, password: String) {
         _state.value = Progress

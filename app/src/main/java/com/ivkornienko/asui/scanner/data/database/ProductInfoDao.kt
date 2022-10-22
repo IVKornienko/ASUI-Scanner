@@ -13,7 +13,8 @@ interface ProductInfoDao {
     fun getListProductInfo(): LiveData<List<ProductInfoDbModel>>
 
     @Query("SELECT * FROM history_scan WHERE id == :id LIMIT 1")
-    suspend fun getProductInfo(id: Long): ProductInfoDbModel
+    fun getProductInfo(id: Long): LiveData<ProductInfoDbModel>
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addProductInfo(productInfo: ProductInfoDbModel): Long

@@ -1,5 +1,6 @@
 package com.ivkornienko.asui.scanner.presentation.scanner
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,17 +8,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.zxing.client.android.Intents
+import com.ivkornienko.asui.scanner.AsuiScannerApplication
 import com.ivkornienko.asui.scanner.R
 import com.ivkornienko.asui.scanner.collectOnce
 import com.ivkornienko.asui.scanner.databinding.FragmentScannerBinding
+import com.ivkornienko.asui.scanner.presentation.ViewModelFactory
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class ScannerFragment : Fragment(R.layout.fragment_scanner) {
 
@@ -25,7 +29,16 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
     private val binding: FragmentScannerBinding
         get() = _binding ?: throw RuntimeException("FragmentScannerBinding is Nullable")
 
-    private val viewModel: ScannerViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[ScannerViewModel::class.java]
+    }
+
+    private val component by lazy {
+        (requireActivity().application as AsuiScannerApplication).component
+    }
 
     private val barcodeLauncher = registerForActivityResult(
         ScanContract()
@@ -46,6 +59,11 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
             binding.etBarcode.setText(result.contents)
             viewModel.getInfoByBarcode(result.contents)
         }
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(

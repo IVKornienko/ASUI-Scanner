@@ -1,15 +1,17 @@
 package com.ivkornienko.asui.scanner.data.repository
 
+import android.app.Application
 import android.content.Context
 import com.ivkornienko.asui.scanner.domain.entity.ApiSettings
 import com.ivkornienko.asui.scanner.domain.repository.StorageConnectionSettingsRepository
+import javax.inject.Inject
 
-class StorageConnectionSettingsRepositoryImpl(
-    context: Context
+class StorageConnectionSettingsRepositoryImpl @Inject constructor(
+    application: Application
 ) : StorageConnectionSettingsRepository {
 
     private val sharedPreferences =
-        context.getSharedPreferences(
+        application.getSharedPreferences(
             PREFERENCES_NAME,
             Context.MODE_PRIVATE,
         )

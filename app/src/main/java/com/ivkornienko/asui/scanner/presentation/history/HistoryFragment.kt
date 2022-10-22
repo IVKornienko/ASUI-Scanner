@@ -1,23 +1,41 @@
 package com.ivkornienko.asui.scanner.presentation.history
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.ivkornienko.asui.scanner.AsuiScannerApplication
 import com.ivkornienko.asui.scanner.R
 import com.ivkornienko.asui.scanner.databinding.FragmentHistoryBinding
+import com.ivkornienko.asui.scanner.presentation.ViewModelFactory
+import javax.inject.Inject
 
 
 class HistoryFragment : Fragment(R.layout.fragment_history) {
 
-    private val viewModel: HistoryViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[HistoryViewModel::class.java]
+    }
+
+    private val component by lazy {
+        (requireActivity().application as AsuiScannerApplication).component
+    }
 
     private var _binding: FragmentHistoryBinding? = null
     private val binding: FragmentHistoryBinding
         get() = _binding ?: throw RuntimeException("FragmentHistoryBinding is Nullable")
 
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -69,8 +87,9 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
             findNavController().navigate(direction)
         }
 
-        viewModel.history.observe(viewLifecycleOwner) {
+        viewModel.productInfoList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+
     }
 }

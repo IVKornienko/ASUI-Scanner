@@ -1,6 +1,8 @@
 package com.ivkornienko.asui.scanner.domain.entity
 
-data class ProductInfo(
+import javax.inject.Inject
+
+data class ProductInfo @Inject constructor(
     val id: Long,
     val timeScan: String,
     val state: String,

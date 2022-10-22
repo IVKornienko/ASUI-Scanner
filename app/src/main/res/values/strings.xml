@@ -23,7 +23,6 @@
     <string name="status_test_connection_failed">Status test: Failed</string>
     <string name="set_default_settings">Set default Settings 1C</string>
     <string name="settings_saved">Settings saved</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_inventory_number">Inventory number:</string>
     <string name="label_barcode">Barcode:</string>
@@ -49,4 +48,7 @@
     <string name="error_empty_url">URL is empty</string>
     <string name="text_true">Да</string>
     <string name="text_false">Нет</string>
+    <string name="text_off">off</string>
+    <string name="text_on">on</string>
+    <string name="text_empty_connection_settings">Connection settings is empty</string>
 </resources>
