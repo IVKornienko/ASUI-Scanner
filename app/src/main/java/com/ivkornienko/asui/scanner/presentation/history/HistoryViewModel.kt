@@ -13,20 +13,6 @@ class HistoryViewModel @Inject constructor(
 
 ) : ViewModel() {
 
-    /*    private val productInfoDao = AppDatabase.getInstance(context).productInfoDao()
-        private val productInfoMapper = ProductInfoMapper()
-        private val storageConnectionSettingsRepository =
-            StorageConnectionSettingsRepositoryImpl(context)
-
-        private val repository = ProductInfoRepositoryImpl(
-            productInfoDao,
-            productInfoMapper,
-            storageConnectionSettingsRepository
-        )
-
-        private val clearHistoryUseCase = ClearHistoryUseCase(repository)
-        private val getProductInfoListUseCase = GetProductInfoListUseCase(repository)
-    */
     val productInfoList = getProductInfoListUseCase()
 
     fun clearHistory() {

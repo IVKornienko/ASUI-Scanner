@@ -28,16 +28,6 @@ class SettingsViewModel @Inject constructor(
         _state.value = state
     }
 
-//    private val storageConnectionSettingsRepository =
-//        StorageConnectionSettingsRepositoryImpl(context)
-//    private val repository = ConnectionSettingsRepositoryImpl(storageConnectionSettingsRepository)
-//
-//    private val getConnectionSettingsUseCase = GetConnectionSettingsUseCase(repository)
-//    private val getDefaultConnectionSettingsUseCase =
-//        GetDefaultConnectionSettingsUseCase(repository)
-//    private val setConnectionSettingsUseCase = SetConnectionSettingsUseCase(repository)
-//    private val testConnectionUseCase = TestConnectionUseCase(repository)
-
     fun testConnection(url: String, login: String, password: String) {
         _state.value = Progress
         if (checkEmptyFields(url, login)) return
