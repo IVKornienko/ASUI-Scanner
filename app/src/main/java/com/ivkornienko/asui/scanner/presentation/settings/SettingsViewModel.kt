@@ -28,14 +28,14 @@ class SettingsViewModel @Inject constructor(
         _state.value = state
     }
 
-    fun testConnection(url: String, login: String, password: String) {
+    fun testConnection(host: String, login: String, password: String) {
         _state.value = Progress
-        if (checkEmptyFields(url, login)) return
+        if (checkEmptyFields(host, login)) return
 
         viewModelScope.launch {
             try {
                 delay(3000)
-                val settings = ApiSettings(url, login, password)
+                val settings = ApiSettings(host, login, password)
                 val result = testConnectionUseCase(settings)
                 processResultTextField(result)
             } catch (e: Exception) {
@@ -44,13 +44,13 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun saveConnectionSettings(url: String, login: String, password: String) {
+    fun saveConnectionSettings(host: String, login: String, password: String) {
         _state.value = Progress
-        if (checkEmptyFields(url, login)) return
+        if (checkEmptyFields(host, login)) return
 
         viewModelScope.launch {
             delay(1000)
-            val settings = ApiSettings(url, login, password)
+            val settings = ApiSettings(host, login, password)
             setConnectionSettingsUseCase(settings)
             _state.value = Saved
         }
@@ -59,22 +59,22 @@ class SettingsViewModel @Inject constructor(
     fun defaultConnectionSettings() {
         _state.value = Progress
         viewModelScope.launch {
-            val (url, login, password) = getDefaultConnectionSettingsUseCase()
-            _state.value = SetSettings(url, login, password)
+            val (host, login, password) = getDefaultConnectionSettingsUseCase()
+            _state.value = SetSettings(host, login, password)
         }
     }
 
     fun loadConnectionSettings() {
         _state.value = Progress
         viewModelScope.launch {
-            val (url, login, password) = getConnectionSettingsUseCase()
-            _state.value = SetSettings(url, login, password)
+            val (host, login, password) = getConnectionSettingsUseCase()
+            _state.value = SetSettings(host, login, password)
         }
     }
 
-    private fun checkEmptyFields(url: String, login: String): Boolean {
-        if (url.isBlank()) {
-            _state.value = EmptyURL
+    private fun checkEmptyFields(host: String, login: String): Boolean {
+        if (host.isBlank()) {
+            _state.value = EmptyHost
             return true
         }
         if (login.isBlank()) {
@@ -94,7 +94,7 @@ class SettingsViewModel @Inject constructor(
 
     sealed class State
     object Saved : State()
-    object EmptyURL : State()
+    object EmptyHost : State()
     object EmptyLogin : State()
     object Progress : State()
     object Success : State()
@@ -103,7 +103,7 @@ class SettingsViewModel @Inject constructor(
     ) : State()
 
     class SetSettings(
-        val url: String,
+        val host: String,
         val login: String,
         val password: String
     ) : State()

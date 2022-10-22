@@ -14,7 +14,7 @@
     <string name="scanning_not_permissions">Cancelled due to missing camera permission</string>
     <string name="text_test_connection">Test Connection</string>
     <string name="text_header_service_1c">Service 1C</string>
-    <string name="hint_settings_url_service_1c">URL Service 1C</string>
+    <string name="hint_settings_host_service_1c">Host Service 1C</string>
     <string name="hint_settings_login_service_1c">Login Service 1C</string>
     <string name="hint_settings_password_service_1c">Password Service 1C</string>
     <string name="button_cancel">Cancel</string>
@@ -45,7 +45,7 @@
     <string name="text_date_time_scan">Date/Time Scan:</string>
     <string name="label_information">Information</string>
     <string name="error_empty_login">Login is empty</string>
-    <string name="error_empty_url">URL is empty</string>
+    <string name="error_empty_host">Host is empty</string>
     <string name="text_true">Да</string>
     <string name="text_false">Нет</string>
     <string name="text_off">off</string>

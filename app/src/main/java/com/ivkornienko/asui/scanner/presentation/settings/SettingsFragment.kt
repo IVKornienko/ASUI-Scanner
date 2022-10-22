@@ -86,11 +86,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private fun setListeners() {
         binding.buttonTestConnection.setOnClickListener {
-            val url = binding.etBaseURL.text.toString()
+            val host = binding.etHost1C.text.toString()
             val login = binding.etLogin1C.text.toString()
             val password = binding.etPassword1C.text.toString()
 
-            viewModel.testConnection(url, login, password)
+            viewModel.testConnection(host, login, password)
         }
 
         binding.buttonCancel.setOnClickListener {
@@ -98,16 +98,16 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         }
 
         binding.buttonSave.setOnClickListener {
-            val url = binding.etBaseURL.text.toString()
+            val host = binding.etHost1C.text.toString()
             val login = binding.etLogin1C.text.toString()
             val password = binding.etPassword1C.text.toString()
 
-            viewModel.saveConnectionSettings(url, login, password)
+            viewModel.saveConnectionSettings(host, login, password)
         }
 
-        binding.etBaseURL.addTextChangedListener {
+        binding.etHost1C.addTextChangedListener {
             binding.buttonSave.isEnabled = false
-            binding.tilBaseURL.error = null
+            binding.tilHost1C.error = null
         }
         binding.etLogin1C.addTextChangedListener {
             binding.buttonSave.isEnabled = false
@@ -140,8 +140,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             is SettingsViewModel.EmptyLogin -> {
                 binding.tilLogin1C.error = getString(R.string.error_empty_login)
             }
-            is SettingsViewModel.EmptyURL -> {
-                binding.tilBaseURL.error = getString(R.string.error_empty_url)
+            is SettingsViewModel.EmptyHost -> {
+                binding.tilHost1C.error = getString(R.string.error_empty_host)
             }
             is SettingsViewModel.Error -> {
                 if (state.error.isNotBlank()) {
@@ -156,7 +156,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             is SettingsViewModel.Progress -> {
                 binding.progressBar.visibility = View.VISIBLE
                 binding.tvStatusTest.visibility = View.INVISIBLE
-                binding.tilBaseURL.isEnabled = false
+                binding.tilHost1C.isEnabled = false
                 binding.tilLogin1C.isEnabled = false
                 binding.tilPassword1C.isEnabled = false
 
@@ -178,7 +178,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                 binding.buttonSave.isEnabled = true
             }
             is SettingsViewModel.SetSettings -> {
-                binding.etBaseURL.setText(state.url)
+                binding.etHost1C.setText(state.host)
                 binding.etLogin1C.setText(state.login)
                 binding.etPassword1C.setText(state.password)
             }
@@ -188,10 +188,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     private fun onDefaultViews() {
         binding.progressBar.visibility = View.GONE
 
-        binding.tilBaseURL.error = null
+        binding.tilHost1C.error = null
         binding.tilLogin1C.error = null
 
-        binding.tilBaseURL.isEnabled = true
+        binding.tilHost1C.isEnabled = true
         binding.tilLogin1C.isEnabled = true
         binding.tilPassword1C.isEnabled = true
 
