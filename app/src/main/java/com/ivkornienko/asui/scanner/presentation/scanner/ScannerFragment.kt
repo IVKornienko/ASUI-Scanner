@@ -136,6 +136,9 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
                 val productInfoId = state.result
                 openDetailFragment(productInfoId)
             }
+            ScannerViewModel.EmptyHost -> {
+                Toast.makeText(requireContext(), getString(R.string.empty_host_scanner), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

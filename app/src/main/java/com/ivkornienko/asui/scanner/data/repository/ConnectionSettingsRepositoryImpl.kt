@@ -11,16 +11,17 @@ import retrofit2.Retrofit
 import javax.inject.Inject
 
 class ConnectionSettingsRepositoryImpl @Inject constructor(
+    private val apiInterceptor: ApiInterceptor,
+    private val retrofitBuilder: Retrofit.Builder,
     private val saveConnectionSettingsUseCase: SaveConnectionSettingsUseCase,
     private val readConnectionSettingsUseCase: ReadConnectionSettingsUseCase,
-    private val resetConnectionSettingsUseCase: ResetConnectionSettingsUseCase,
-    private val apiInterceptor: ApiInterceptor,
-    private val retrofitBuilder: Retrofit.Builder
+    private val resetConnectionSettingsUseCase: ResetConnectionSettingsUseCase
 ) : ConnectionSettingsRepository {
 
     override suspend fun testConnection(settings: ApiSettings): Boolean {
         apiInterceptor.setInterceptor(settings)
-        val apiService = ApiFactory(retrofitBuilder, settings.url).apiService
+        val apiService = ApiFactory(retrofitBuilder).apiService(settings)
+
         val response = apiService.testConnection(TEST_STRING)
         return response.test_string == TEST_STRING
     }

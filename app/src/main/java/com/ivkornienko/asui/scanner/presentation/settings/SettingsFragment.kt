@@ -137,9 +137,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         onDefaultViews()
 
         when (state) {
-            is SettingsViewModel.EmptyLogin -> {
-                binding.tilLogin1C.error = getString(R.string.error_empty_login)
-            }
             is SettingsViewModel.EmptyHost -> {
                 binding.tilHost1C.error = getString(R.string.error_empty_host)
             }

@@ -2,6 +2,7 @@ package com.ivkornienko.asui.scanner.presentation.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ivkornienko.asui.scanner.domain.HostNotFoundException
 import com.ivkornienko.asui.scanner.domain.entity.ApiSettings
 import com.ivkornienko.asui.scanner.domain.usecase.connectionsettings.GetConnectionSettingsUseCase
 import com.ivkornienko.asui.scanner.domain.usecase.connectionsettings.GetDefaultConnectionSettingsUseCase
@@ -30,7 +31,7 @@ class SettingsViewModel @Inject constructor(
 
     fun testConnection(host: String, login: String, password: String) {
         _state.value = Progress
-        if (checkEmptyFields(host, login)) return
+        if (validateFields(host)) return
 
         viewModelScope.launch {
             try {
@@ -38,6 +39,8 @@ class SettingsViewModel @Inject constructor(
                 val settings = ApiSettings(host, login, password)
                 val result = testConnectionUseCase(settings)
                 processResultTextField(result)
+            } catch (e: HostNotFoundException) {
+                _state.value = EmptyHost
             } catch (e: Exception) {
                 processOtherSystemExceptions(e.message.toString())
             }
@@ -46,7 +49,7 @@ class SettingsViewModel @Inject constructor(
 
     fun saveConnectionSettings(host: String, login: String, password: String) {
         _state.value = Progress
-        if (checkEmptyFields(host, login)) return
+        if (validateFields(host)) return
 
         viewModelScope.launch {
             delay(1000)
@@ -72,13 +75,9 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    private fun checkEmptyFields(host: String, login: String): Boolean {
+    private fun validateFields(host: String): Boolean {
         if (host.isBlank()) {
             _state.value = EmptyHost
-            return true
-        }
-        if (login.isBlank()) {
-            _state.value = EmptyLogin
             return true
         }
         return false
@@ -95,7 +94,6 @@ class SettingsViewModel @Inject constructor(
     sealed class State
     object Saved : State()
     object EmptyHost : State()
-    object EmptyLogin : State()
     object Progress : State()
     object Success : State()
     class Error(

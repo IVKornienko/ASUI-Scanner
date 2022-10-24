@@ -8,7 +8,6 @@ import com.ivkornienko.asui.scanner.data.network.ApiFactory
 import com.ivkornienko.asui.scanner.data.network.ApiInterceptor
 import com.ivkornienko.asui.scanner.domain.entity.ProductInfo
 import com.ivkornienko.asui.scanner.domain.repository.ProductInfoRepository
-import com.ivkornienko.asui.scanner.domain.repository.StorageConnectionSettingsRepository
 import com.ivkornienko.asui.scanner.domain.usecase.connectionsettings.ReadConnectionSettingsUseCase
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -16,12 +15,10 @@ import javax.inject.Inject
 class ProductInfoRepositoryImpl @Inject constructor(
     private val productInfoDao: ProductInfoDao,
     private val productInfoMapper: ProductInfoMapper,
-    repository: StorageConnectionSettingsRepository,
     private val apiInterceptor: ApiInterceptor,
-    private val retrofitBuilder: Retrofit.Builder
+    private val retrofitBuilder: Retrofit.Builder,
+    private val readConnectionSettingsUseCase: ReadConnectionSettingsUseCase
 ) : ProductInfoRepository {
-
-    private val readConnectionSettingsUseCase = ReadConnectionSettingsUseCase(repository)
 
     override fun getProductInfoList(): LiveData<List<ProductInfo>> {
         return Transformations.map(productInfoDao.getListProductInfo()) { list ->
@@ -34,7 +31,8 @@ class ProductInfoRepositoryImpl @Inject constructor(
     override suspend fun loadProductInfoByBarcode(barcode: String): Long {
         val settings = readConnectionSettingsUseCase()
         apiInterceptor.setInterceptor(settings)
-        val apiService = ApiFactory(retrofitBuilder, settings.url).apiService
+
+        val apiService = ApiFactory(retrofitBuilder).apiService(settings)
         val productInfoDto = apiService.getInfoByBarcode(barcode)
 
         val error = productInfoDto.error ?: ""
