@@ -2,8 +2,6 @@
     <string name="app_name">ASUI Scanner</string>
     <string name="logo_1c_1_8_3">1С 8.3</string>
     <string name="logo_barcode_scanner">Barcode Scanner</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="tab_label_history">History</string>
     <string name="tab_label_scanner">Scanner</string>
     <string name="tab_label_settings">Settings</string>
@@ -23,7 +21,6 @@
     <string name="status_test_connection_failed">Status test: Failed</string>
     <string name="set_default_settings">Set default Settings 1C</string>
     <string name="settings_saved">Settings saved</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="label_inventory_number">Inventory number:</string>
     <string name="label_barcode">Barcode:</string>
     <string name="label_serial_number">Serial Number:</string>
@@ -44,12 +41,11 @@
     <string name="text_other_settings">Other Settings</string>
     <string name="text_date_time_scan">Date/Time Scan:</string>
     <string name="label_information">Information</string>
-    <string name="error_empty_login">Login is empty</string>
     <string name="error_empty_host">Host is empty</string>
-    <string name="text_true">Да</string>
-    <string name="text_false">Нет</string>
-    <string name="text_off">off</string>
-    <string name="text_on">on</string>
+    <string name="text_true">True</string>
+    <string name="text_false">False</string>
+    <string name="text_off">Off</string>
+    <string name="text_on">On</string>
     <string name="text_empty_connection_settings">Connection settings is empty</string>
     <string name="empty_host_scanner">Host not filled. Go to page Settings and configure the 1C service connection</string>
 </resources>
