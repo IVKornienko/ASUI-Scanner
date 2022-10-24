@@ -66,7 +66,6 @@ interface DataModule {
             return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
-                .baseUrl("http://localhost/")
         }
 
     }

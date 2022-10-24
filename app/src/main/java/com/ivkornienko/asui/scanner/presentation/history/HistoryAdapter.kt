@@ -24,8 +24,9 @@ class HistoryAdapter : ListAdapter<ProductInfo, HistoryViewHolder>(HistoryItemDi
         val productInfo = getItem(position)
         with(holder.binding) {
             tvFullName.text = productInfo.fullName
+            tvStore.text = productInfo.storeName
             tvBarcode.text = productInfo.barcode
-            tvInvNumber.text = productInfo.invNumber
+            tvDtScan.text = productInfo.timeScan
 
             root.setOnClickListener {
                 onHistoryItemClickListener?.invoke(productInfo)

@@ -11,9 +11,12 @@ import com.journeyapps.barcodescanner.DecoratedBarcodeView
 
 class ScanningActivity : CaptureActivity() {
     private lateinit var binding: ActivityScanningBinding
+
     override fun initializeContent(): DecoratedBarcodeView {
         binding = ActivityScanningBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        repaintFlashLight(R.drawable.ic_flashlight_on, android.R.color.holo_orange_light)
 
         if (!hasFlash()) {
             binding.switchFlashlight.visibility = View.GONE
@@ -36,19 +39,31 @@ class ScanningActivity : CaptureActivity() {
     }
 
     private fun onTorchOn() {
-        binding.switchFlashlight.setImageDrawable(ContextCompat.getDrawable(this,
-            R.drawable.ic_flashlight_off
-        ))
+        repaintFlashLight(R.drawable.ic_flashlight_off, R.color.black)
         binding.switchFlashlight.tag = getString(R.string.text_on)
         binding.zxingBarcodeScanner.setTorchOn()
     }
 
     private fun onTorchOff() {
-        binding.switchFlashlight.setImageDrawable(ContextCompat.getDrawable(this,
-            R.drawable.ic_flashlight_on
-        ))
+        repaintFlashLight(R.drawable.ic_flashlight_on, android.R.color.holo_orange_light)
         binding.switchFlashlight.tag = getString(R.string.text_off)
         binding.zxingBarcodeScanner.setTorchOff()
     }
 
+    private fun repaintFlashLight(drawable: Int, color: Int) {
+        with(binding.switchFlashlight) {
+            this.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this@ScanningActivity,
+                    drawable
+                )
+            )
+            this.setColorFilter(
+                ContextCompat.getColor(
+                    this@ScanningActivity,
+                    color
+                )
+            )
+        }
+    }
 }

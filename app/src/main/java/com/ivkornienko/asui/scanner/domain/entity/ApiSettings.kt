@@ -1,8 +1,6 @@
 package com.ivkornienko.asui.scanner.domain.entity
 
-import javax.inject.Inject
-
-data class ApiSettings @Inject constructor(
+data class ApiSettings (
     val host: String,
     val login: String,
     val password: String,

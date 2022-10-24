@@ -1,7 +1,6 @@
 package com.ivkornienko.asui.scanner.di
 
 import android.app.Application
-import com.ivkornienko.asui.scanner.domain.entity.ApiSettings
 import com.ivkornienko.asui.scanner.presentation.history.HistoryFragment
 import com.ivkornienko.asui.scanner.presentation.productinfo.ProductInfoFragment
 import com.ivkornienko.asui.scanner.presentation.scanner.ScannerFragment
@@ -22,7 +21,6 @@ interface ApplicationComponent {
     interface Factory {
         fun create(
             @BindsInstance application: Application,
-            @BindsInstance settings: ApiSettings = ApiSettings("http://localhost", "", "")
         ): ApplicationComponent
     }
 

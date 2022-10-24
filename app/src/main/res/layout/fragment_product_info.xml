@@ -11,7 +11,7 @@
         tools:context=".presentation.productinfo.ProductInfoFragment">
 
         <TextView
-            android:id="@+id/tvFullName"
+            android:id="@+id/tv_FullName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             app:cardUseCompatPadding="true"
-            app:layout_constraintTop_toBottomOf="@id/tvFullName">
+            app:layout_constraintTop_toBottomOf="@id/tv_FullName">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -219,36 +219,6 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp">
 
-                <TextView
-                    android:id="@+id/tvOperationDateLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:text="@string/label_operation_date"
-                    android:textColor="#000"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvOperationDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:textColor="#000"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toEndOf="@id/tvOperationDateLabel"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="30.01.2021" />
-
-                <View
-                    android:id="@+id/separator21"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="8dp"
-                    android:background="#63000000"
-                    app:layout_constraintTop_toBottomOf="@id/tvOperationDate" />
 
                 <TextView
                     android:id="@+id/tvOrganizationLabel"
@@ -261,7 +231,7 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@id/tvOrganization"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tvOrganization" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tvOrganization"
@@ -271,7 +241,7 @@
                     android:textColor="#000"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@id/tvOperationDate"
-                    app:layout_constraintTop_toTopOf="@id/separator21"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="РСГ-Бизнес Сервис ООО" />
 
                 <View
@@ -291,18 +261,18 @@
                     android:text="@string/label_store"
                     android:textColor="#000"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@id/tvStore"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_Store"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tvStore" />
+                    app:layout_constraintTop_toTopOf="@id/tv_Store" />
 
                 <TextView
-                    android:id="@+id/tvStore"
+                    android:id="@+id/tv_Store"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textColor="#000"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/tvOrganization"
+                    app:layout_constraintStart_toStartOf="@id/tvOperationDate"
                     app:layout_constraintTop_toTopOf="@id/separator22"
                     tools:text="Малышева Евгения Николаевна" />
 
@@ -312,7 +282,7 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="8dp"
                     android:background="#63000000"
-                    app:layout_constraintTop_toBottomOf="@id/tvStore" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_Store" />
 
                 <TextView
                     android:id="@+id/tvCurrentStateLabel"
@@ -334,9 +304,41 @@
                     android:layout_marginTop="10dp"
                     android:textColor="#000"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/tvOrganization"
+                    app:layout_constraintStart_toStartOf="@id/tvOperationDate"
                     app:layout_constraintTop_toTopOf="@id/separator23"
                     tools:text="Хранение на складе" />
+
+                <View
+                    android:id="@+id/separator21"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#63000000"
+                    app:layout_constraintTop_toBottomOf="@id/tvCurrentState" />
+
+                <TextView
+                    android:id="@+id/tvOperationDateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/label_operation_date"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/tvOperationDate" />
+
+                <TextView
+                    android:id="@+id/tvOperationDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tvOperationDateLabel"
+                    app:layout_constraintTop_toTopOf="@id/separator21"
+                    tools:text="30.01.2021" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

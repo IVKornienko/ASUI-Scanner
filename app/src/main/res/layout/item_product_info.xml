@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="4dp"
     app:cardUseCompatPadding="true">
 
@@ -11,44 +11,82 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/iv_item"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_item"
+            app:layout_constraintEnd_toStartOf="@id/tv_FullName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@android:color/holo_green_dark" />
+
+
         <TextView
-            android:id="@+id/tvFullName"
-            tools:text="Монитор"
+            android:id="@+id/tv_barcode"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:paddingBottom="8dp"
-            android:textStyle="bold"
+            android:layout_marginStart="4dp"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_time"
+            app:layout_constraintEnd_toStartOf="@id/iv_time"
+            app:layout_constraintStart_toEndOf="@id/iv_item"
+            app:layout_constraintTop_toTopOf="@id/iv_time"
+            tools:text="12312313123" />
+
+        <ImageView
+            android:id="@+id/iv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:paddingStart="0dp"
+            android:paddingEnd="4dp"
+            android:src="@drawable/ic_update"
+            app:layout_constraintEnd_toEndOf="@id/tv_dtScan"
+            app:layout_constraintStart_toEndOf="@id/iv_item"
+            app:layout_constraintTop_toTopOf="@id/iv_item" />
+
+        <TextView
+            android:id="@+id/tv_dtScan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_time"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="10.01.2022 23:55:55" />
+
+        <TextView
+            android:id="@+id/tv_FullName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:paddingBottom="4dp"
             android:textColor="#000"
             android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toEndOf="@id/iv_item"
+            app:layout_constraintTop_toBottomOf="@id/tv_barcode"
+            tools:text="Монитор Монитор Монитор Монитор Монитор Монитор Монитор Монитор" />
 
         <TextView
-            android:id="@+id/tvBarcode"
-            tools:text="000000000183100001"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_Store"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
             android:textColor="#000"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/tvFullName"
-            app:layout_constraintEnd_toStartOf="@id/tvInvNumber"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tvInvNumber"
-            tools:text="РГС-21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:textColor="#000"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/tvFullName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tvBarcode" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tv_FullName"
+            app:layout_constraintStart_toStartOf="@id/tv_FullName"
+            app:layout_constraintTop_toBottomOf="@id/tv_FullName"
+            tools:text="0000000001831" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
