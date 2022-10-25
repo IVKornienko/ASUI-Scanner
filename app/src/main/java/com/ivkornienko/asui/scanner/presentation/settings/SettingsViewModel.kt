@@ -52,7 +52,6 @@ class SettingsViewModel @Inject constructor(
         if (validateFields(host)) return
 
         viewModelScope.launch {
-            delay(1000)
             val settings = ApiSettings(host, login, password)
             setConnectionSettingsUseCase(settings)
             _state.value = Saved

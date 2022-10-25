@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ivkornienko.asui.scanner.domain.HostNotFoundException
 import com.ivkornienko.asui.scanner.domain.usecase.productinfo.LoadProductInfoByBarcodeUseCase
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -31,7 +30,6 @@ class ScannerViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                delay(1000)
                 val result = loadProductInfoByBarcodeUseCase(barcode)
                 processResult(result)
             } catch (e: HostNotFoundException) {

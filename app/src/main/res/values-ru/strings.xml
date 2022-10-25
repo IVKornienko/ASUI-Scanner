@@ -45,8 +45,6 @@
     <string name="error_empty_host">Хост не заполнен</string>
     <string name="text_true">Да</string>
     <string name="text_false">Нет</string>
-    <string name="text_off">Выкл.</string>
-    <string name="text_on">Вкл.</string>
     <string name="text_empty_connection_settings">Настройки соединения не заполнены</string>
     <string name="empty_host_scanner">Хост не заполнен. Перейдите на страницу с настройками и заполните</string>
 </resources>

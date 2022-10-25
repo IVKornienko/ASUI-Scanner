@@ -44,8 +44,6 @@
     <string name="error_empty_host">Host is empty</string>
     <string name="text_true">True</string>
     <string name="text_false">False</string>
-    <string name="text_off">Off</string>
-    <string name="text_on">On</string>
     <string name="text_empty_connection_settings">Connection settings is empty</string>
     <string name="empty_host_scanner">Host not filled. Go to page Settings and configure the 1C service connection</string>
 </resources>
