@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">АСУИ сканер</string>
+    <string name="app_name">АСУИ Сканер</string>
     <string name="logo_1c_1_8_3">1С 8.3</string>
     <string name="logo_barcode_scanner">Сканер штрихкодов</string>
     <string name="tab_label_history">История</string>
