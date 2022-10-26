@@ -2,13 +2,12 @@ package com.ivkornienko.asui.scanner.presentation.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ivkornienko.asui.scanner.domain.HostNotFoundException
+import com.ivkornienko.asui.scanner.domain.EmptyConnectionException
 import com.ivkornienko.asui.scanner.domain.entity.ApiSettings
 import com.ivkornienko.asui.scanner.domain.usecase.connectionsettings.GetConnectionSettingsUseCase
 import com.ivkornienko.asui.scanner.domain.usecase.connectionsettings.GetDefaultConnectionSettingsUseCase
 import com.ivkornienko.asui.scanner.domain.usecase.connectionsettings.SetConnectionSettingsUseCase
 import com.ivkornienko.asui.scanner.domain.usecase.connectionsettings.TestConnectionUseCase
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -29,57 +28,52 @@ class SettingsViewModel @Inject constructor(
         _state.value = state
     }
 
-    fun testConnection(host: String, login: String, password: String) {
+    fun testSettings(host: String, base: String, name: String, login: String, password: String) {
         _state.value = Progress
-        if (validateFields(host)) return
 
         viewModelScope.launch {
             try {
-                delay(3000)
-                val settings = ApiSettings(host, login, password)
+                val settings = ApiSettings(host, base, name, login, password)
                 val result = testConnectionUseCase(settings)
                 processResultTextField(result)
-            } catch (e: HostNotFoundException) {
-                _state.value = EmptyHost
+            } catch (e: EmptyConnectionException) {
+                _state.value = EmptySettings(
+                    host = host.isBlank(),
+                    base = base.isBlank(),
+                    name = name.isBlank()
+                )
             } catch (e: Exception) {
                 processOtherSystemExceptions(e.message.toString())
             }
         }
     }
 
-    fun saveConnectionSettings(host: String, login: String, password: String) {
+    fun saveSettings(
+        host: String, base: String, name: String, login: String, password: String
+    ) {
         _state.value = Progress
-        if (validateFields(host)) return
 
         viewModelScope.launch {
-            val settings = ApiSettings(host, login, password)
+            val settings = ApiSettings(host, base, name, login, password)
             setConnectionSettingsUseCase(settings)
             _state.value = Saved
         }
     }
 
-    fun defaultConnectionSettings() {
+    fun defaultSettings() {
         _state.value = Progress
         viewModelScope.launch {
-            val (host, login, password) = getDefaultConnectionSettingsUseCase()
-            _state.value = SetSettings(host, login, password)
+            val (host, base, name, login, password) = getDefaultConnectionSettingsUseCase()
+            _state.value = SetSettings(host, base, name, login, password)
         }
     }
 
-    fun loadConnectionSettings() {
+    fun loadSettings() {
         _state.value = Progress
         viewModelScope.launch {
-            val (host, login, password) = getConnectionSettingsUseCase()
-            _state.value = SetSettings(host, login, password)
+            val (host, base, name, login, password) = getConnectionSettingsUseCase()
+            _state.value = SetSettings(host, base, name, login, password)
         }
-    }
-
-    private fun validateFields(host: String): Boolean {
-        if (host.isBlank()) {
-            _state.value = EmptyHost
-            return true
-        }
-        return false
     }
 
     private fun processResultTextField(result: Boolean) {
@@ -92,7 +86,12 @@ class SettingsViewModel @Inject constructor(
 
     sealed class State
     object Saved : State()
-    object EmptyHost : State()
+    class EmptySettings(
+        var host: Boolean,
+        val base: Boolean,
+        val name: Boolean
+    ) : State()
+
     object Progress : State()
     object Success : State()
     class Error(
@@ -101,6 +100,8 @@ class SettingsViewModel @Inject constructor(
 
     class SetSettings(
         val host: String,
+        val base: String,
+        val name: String,
         val login: String,
         val password: String
     ) : State()

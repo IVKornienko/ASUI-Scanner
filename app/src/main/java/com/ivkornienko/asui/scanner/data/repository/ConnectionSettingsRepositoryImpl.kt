@@ -27,9 +27,17 @@ class ConnectionSettingsRepositoryImpl @Inject constructor(
     }
 
     override fun getConnectionSettings(): ApiSettings {
-        val url =
+        val host =
             readConnectionSettingsUseCase().host.ifBlank {
                 ApiSettings.DEFAULT_HOST_SERVICE_1C
+            }
+        val base =
+            readConnectionSettingsUseCase().host.ifBlank {
+                ApiSettings.DEFAULT_BASE_1C
+            }
+        val name =
+            readConnectionSettingsUseCase().host.ifBlank {
+                ApiSettings.DEFAULT_NAME_SERVICE_1C
             }
         val login =
             readConnectionSettingsUseCase().login.ifBlank {
@@ -40,9 +48,11 @@ class ConnectionSettingsRepositoryImpl @Inject constructor(
                 ApiSettings.DEFAULT_PASSWORD_SERVICE_1C
             }
         return ApiSettings(
-            url,
-            login,
-            password
+            host = host,
+            base = base,
+            name = name,
+            login = login,
+            password = password
         )
     }
 
@@ -50,6 +60,8 @@ class ConnectionSettingsRepositoryImpl @Inject constructor(
         resetConnectionSettingsUseCase()
         return ApiSettings(
             ApiSettings.DEFAULT_HOST_SERVICE_1C,
+            ApiSettings.DEFAULT_BASE_1C,
+            ApiSettings.DEFAULT_NAME_SERVICE_1C,
             ApiSettings.DEFAULT_LOGIN_SERVICE_1C,
             ApiSettings.DEFAULT_PASSWORD_SERVICE_1C
         )

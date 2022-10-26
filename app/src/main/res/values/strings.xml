@@ -46,4 +46,8 @@
     <string name="text_false">False</string>
     <string name="text_empty_connection_settings">Connection settings is empty</string>
     <string name="empty_host_scanner">Host not filled. Go to page Settings and configure the 1C service connection</string>
+    <string name="hint_settings_base_1c">Base 1C</string>
+    <string name="hint_settings_name_service_1c">Name Service 1C</string>
+    <string name="error_empty_base">Base is empty</string>
+    <string name="error_empty_name">Name is empty</string>
 </resources>

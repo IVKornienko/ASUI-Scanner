@@ -1,3 +1,4 @@
 package com.ivkornienko.asui.scanner.domain
 
-object HostNotFoundException: Exception()
+object EmptyConnectionException: Exception()
+

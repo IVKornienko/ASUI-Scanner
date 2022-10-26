@@ -41,8 +41,7 @@ class ProductInfoRepositoryImpl @Inject constructor(
         }
 
         val productInfoDb = productInfoMapper.mapDtoToDbModel(productInfoDto)
-        val productInfoId = productInfoDao.addProductInfo(productInfoDb)
-        return productInfoId
+        return productInfoDao.addProductInfo(productInfoDb)
     }
 
     override fun getProductInfo(id: Long): LiveData<ProductInfo> {

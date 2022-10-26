@@ -18,6 +18,8 @@ class StorageConnectionSettingsRepositoryImpl @Inject constructor(
 
     override fun saveConnectionSettings(settings: ApiSettings) {
         setPreference(PREFERENCE_HOST_SERVICE1C, settings.host)
+        setPreference(PREFERENCE_BASE_SERVICE1C, settings.base)
+        setPreference(PREFERENCE_NAME_SERVICE1C, settings.name)
         setPreference(PREFERENCE_LOGIN_SERVICE1C, settings.login)
         setPreference(PREFERENCE_PASSWORD_SERVICE1C, settings.password)
     }
@@ -25,6 +27,8 @@ class StorageConnectionSettingsRepositoryImpl @Inject constructor(
     override fun readConnectionSettings(): ApiSettings {
         return ApiSettings(
             host = sharedPreferences.getString(PREFERENCE_HOST_SERVICE1C, "") ?: "",
+            base = sharedPreferences.getString(PREFERENCE_BASE_SERVICE1C, "") ?: "",
+            name = sharedPreferences.getString(PREFERENCE_NAME_SERVICE1C, "") ?: "",
             login = sharedPreferences.getString(PREFERENCE_LOGIN_SERVICE1C, "") ?: "",
             password = sharedPreferences.getString(PREFERENCE_PASSWORD_SERVICE1C, "") ?: "",
         )
@@ -32,14 +36,19 @@ class StorageConnectionSettingsRepositoryImpl @Inject constructor(
 
     override fun resetConnectionSettings() {
         setPreference(PREFERENCE_HOST_SERVICE1C, null)
+        setPreference(PREFERENCE_BASE_SERVICE1C, null)
+        setPreference(PREFERENCE_NAME_SERVICE1C, null)
         setPreference(PREFERENCE_LOGIN_SERVICE1C, null)
         setPreference(PREFERENCE_PASSWORD_SERVICE1C, null)
     }
 
     private fun setPreference(name: String, value: String?) {
         val editor = sharedPreferences.edit()
-        if (value == null) editor.remove(name)
-        else editor.putString(name, value)
+        if (value == null) {
+            editor.remove(name)
+        } else {
+            editor.putString(name, value)
+        }
         editor.apply()
     }
 
@@ -47,6 +56,8 @@ class StorageConnectionSettingsRepositoryImpl @Inject constructor(
         private const val PREFERENCES_NAME = "settings_Service1C"
 
         private const val PREFERENCE_HOST_SERVICE1C = "host"
+        private const val PREFERENCE_BASE_SERVICE1C = "base"
+        private const val PREFERENCE_NAME_SERVICE1C = "name"
         private const val PREFERENCE_LOGIN_SERVICE1C = "login"
         private const val PREFERENCE_PASSWORD_SERVICE1C = "password"
     }

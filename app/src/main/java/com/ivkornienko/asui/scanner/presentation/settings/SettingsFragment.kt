@@ -19,7 +19,6 @@ import com.ivkornienko.asui.scanner.presentation.ViewModelFactory
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private var _binding: FragmentSettingsBinding? = null
@@ -63,7 +62,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         setListeners()
         observeViewModels()
 
-        if (savedInstanceState == null) viewModel.loadConnectionSettings()
+        if (savedInstanceState == null) viewModel.loadSettings()
     }
 
     private fun createMenu() {
@@ -75,7 +74,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.item_defaultSettings -> {
-                        viewModel.defaultConnectionSettings()
+                        viewModel.defaultSettings()
                         return false
                     }
                 }
@@ -86,11 +85,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private fun setListeners() {
         binding.buttonTestConnection.setOnClickListener {
-            val host = binding.etHost1C.text.toString()
-            val login = binding.etLogin1C.text.toString()
-            val password = binding.etPassword1C.text.toString()
-
-            viewModel.testConnection(host, login, password)
+            executeListenersButton(viewModel::testSettings)
         }
 
         binding.buttonCancel.setOnClickListener {
@@ -98,11 +93,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         }
 
         binding.buttonSave.setOnClickListener {
-            val host = binding.etHost1C.text.toString()
-            val login = binding.etLogin1C.text.toString()
-            val password = binding.etPassword1C.text.toString()
-
-            viewModel.saveConnectionSettings(host, login, password)
+            executeListenersButton(viewModel::saveSettings)
         }
 
         binding.etHost1C.addTextChangedListener {
@@ -113,6 +104,16 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             binding.buttonSave.isEnabled = false
             binding.tilLogin1C.error = null
         }
+    }
+
+    private fun executeListenersButton(func: (String, String, String, String, String) -> Unit) {
+        val host = binding.etHost1C.text.toString()
+        val base = binding.etBase1C.text.toString()
+        val name = binding.etName1C.text.toString()
+        val login = binding.etLogin1C.text.toString()
+        val password = binding.etPassword1C.text.toString()
+        func(host, base, name, login, password)
+
     }
 
     private fun observeViewModels() {
@@ -137,8 +138,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         onDefaultViews()
 
         when (state) {
-            is SettingsViewModel.EmptyHost -> {
-                binding.tilHost1C.error = getString(R.string.error_empty_host)
+            is SettingsViewModel.EmptySettings -> {
+                binding.tilHost1C.error =
+                    if (state.host) getString(R.string.error_empty_host) else null
+                binding.tilBase1C.error =
+                    if (state.base) getString(R.string.error_empty_base) else null
+                binding.tilName1C.error =
+                    if (state.name) getString(R.string.error_empty_name) else null
             }
             is SettingsViewModel.Error -> {
                 if (state.error.isNotBlank()) {
@@ -154,6 +160,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                 binding.progressBar.visibility = View.VISIBLE
                 binding.tvStatusTest.visibility = View.INVISIBLE
                 binding.tilHost1C.isEnabled = false
+                binding.tilBase1C.isEnabled = false
+                binding.tilName1C.isEnabled = false
                 binding.tilLogin1C.isEnabled = false
                 binding.tilPassword1C.isEnabled = false
 
@@ -176,6 +184,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             }
             is SettingsViewModel.SetSettings -> {
                 binding.etHost1C.setText(state.host)
+                binding.etBase1C.setText(state.base)
+                binding.etName1C.setText(state.name)
                 binding.etLogin1C.setText(state.login)
                 binding.etPassword1C.setText(state.password)
             }
@@ -186,9 +196,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         binding.progressBar.visibility = View.GONE
 
         binding.tilHost1C.error = null
+        binding.tilBase1C.error = null
+        binding.tilName1C.error = null
         binding.tilLogin1C.error = null
 
         binding.tilHost1C.isEnabled = true
+        binding.tilBase1C.isEnabled = true
+        binding.tilName1C.isEnabled = true
         binding.tilLogin1C.isEnabled = true
         binding.tilPassword1C.isEnabled = true
 
