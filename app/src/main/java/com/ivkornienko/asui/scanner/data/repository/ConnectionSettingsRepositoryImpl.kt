@@ -32,11 +32,11 @@ class ConnectionSettingsRepositoryImpl @Inject constructor(
                 ApiSettings.DEFAULT_HOST_SERVICE_1C
             }
         val base =
-            readConnectionSettingsUseCase().host.ifBlank {
+            readConnectionSettingsUseCase().base.ifBlank {
                 ApiSettings.DEFAULT_BASE_1C
             }
         val name =
-            readConnectionSettingsUseCase().host.ifBlank {
+            readConnectionSettingsUseCase().name.ifBlank {
                 ApiSettings.DEFAULT_NAME_SERVICE_1C
             }
         val login =
