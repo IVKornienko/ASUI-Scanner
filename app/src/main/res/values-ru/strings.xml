@@ -47,4 +47,8 @@
     <string name="text_false">Нет</string>
     <string name="text_empty_connection_settings">Настройки соединения не заполнены</string>
     <string name="empty_host_scanner">Хост не заполнен. Перейдите на страницу с настройками и заполните</string>
+    <string name="hint_settings_base_1c">Имя база 1С</string>
+    <string name="hint_settings_name_service_1c">Имя сервиса в 1С</string>
+    <string name="error_empty_base">Имя базы не заполнено</string>
+    <string name="error_empty_name">Имя сервиса не заполнено</string>
 </resources>
