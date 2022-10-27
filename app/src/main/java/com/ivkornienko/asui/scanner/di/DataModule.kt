@@ -53,7 +53,7 @@ interface DataModule {
         @ApplicationScope
         fun provideOkHttpClient(interceptor: ApiInterceptor): OkHttpClient {
             return OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
                 .addInterceptor(interceptor)
                 .build()
         }
