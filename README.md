@@ -7,14 +7,13 @@
 Настройки подключения к веб-сервису задаются в приложении, для хранения используется Shared Preferences.
 В приложении ведется история сканирования вместе с информаций по имуещству.
 
-
-Написано под Android, API не ниже 23.
+Android API не ниже 23.
 
 Используемые бибилотеки и технологии:
 - ZXing Android Embedded (https://github.com/journeyapps/zxing-android-embedded)
 - Android Jetpack's Navigation
 - Retrofit + GSon
-- Logging Interceptor 
+- Logging Interceptor
 - Room
 - Dagger 2
 
