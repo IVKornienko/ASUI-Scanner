@@ -65,6 +65,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         if (savedInstanceState == null) viewModel.loadSettings()
     }
 
+
     private fun createMenu() {
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -113,7 +114,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         val login = binding.etLogin1C.text.toString()
         val password = binding.etPassword1C.text.toString()
         func(host, base, name, login, password)
-
     }
 
     private fun observeViewModels() {
@@ -157,17 +157,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
             }
             is SettingsViewModel.Progress -> {
-                binding.progressBar.visibility = View.VISIBLE
-                binding.tvStatusTest.visibility = View.INVISIBLE
-                binding.tilHost1C.isEnabled = false
-                binding.tilBase1C.isEnabled = false
-                binding.tilName1C.isEnabled = false
-                binding.tilLogin1C.isEnabled = false
-                binding.tilPassword1C.isEnabled = false
-
-                binding.buttonSave.isEnabled = false
-                binding.buttonCancel.isEnabled = false
-                binding.buttonTestConnection.isEnabled = false
+                onProgressViews()
             }
             is SettingsViewModel.Saved -> {
                 Toast.makeText(
@@ -193,24 +183,42 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     }
 
     private fun onDefaultViews() {
-        binding.progressBar.visibility = View.GONE
+        with(binding) {
+            progressBar.visibility = View.GONE
 
-        binding.tilHost1C.error = null
-        binding.tilBase1C.error = null
-        binding.tilName1C.error = null
-        binding.tilLogin1C.error = null
+            tilHost1C.error = null
+            tilBase1C.error = null
+            tilName1C.error = null
+            tilLogin1C.error = null
 
-        binding.tilHost1C.isEnabled = true
-        binding.tilBase1C.isEnabled = true
-        binding.tilName1C.isEnabled = true
-        binding.tilLogin1C.isEnabled = true
-        binding.tilPassword1C.isEnabled = true
+            tilHost1C.isEnabled = true
+            tilBase1C.isEnabled = true
+            tilName1C.isEnabled = true
+            tilLogin1C.isEnabled = true
+            tilPassword1C.isEnabled = true
 
-        binding.buttonSave.isEnabled = false
-        binding.buttonCancel.isEnabled = true
-        binding.buttonTestConnection.isEnabled = true
+            buttonSave.isEnabled = false
+            buttonCancel.isEnabled = true
+            buttonTestConnection.isEnabled = true
 
-        binding.tvStatusTest.visibility = View.INVISIBLE
+            tvStatusTest.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun onProgressViews() {
+        with(binding) {
+            progressBar.visibility = View.VISIBLE
+            tvStatusTest.visibility = View.INVISIBLE
+            tilHost1C.isEnabled = false
+            tilBase1C.isEnabled = false
+            tilName1C.isEnabled = false
+            tilLogin1C.isEnabled = false
+            tilPassword1C.isEnabled = false
+
+            buttonSave.isEnabled = false
+            buttonCancel.isEnabled = false
+            buttonTestConnection.isEnabled = false
+        }
     }
 
 }
