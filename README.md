@@ -12,6 +12,7 @@ Android API не ниже 23.
 Используемые бибилотеки и технологии:
 - ZXing Android Embedded (https://github.com/journeyapps/zxing-android-embedded)
 - Android Jetpack's Navigation
+ -Coroutines
 - Retrofit + GSon
 - Logging Interceptor
 - Room
