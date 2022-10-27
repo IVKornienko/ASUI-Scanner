@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".presentation.productinfo.ProductInfoFragment">
+
+        <TextView
+            android:id="@+id/tv_FullName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textColor="@android:color/holo_purple"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Acer TravelMate P2 TMP214-52-372L [NX.VLHER.00N] Black 14&quot; (FHD i3-10110U/8Gb/256GbSSD/W10Pro)" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@id/tv_FullName">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tvInvNumberLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/label_inventory_number"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvInvNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tvInvNumberLabel"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="БСМЦ00001" />
+
+                <View
+                    android:id="@+id/separator11"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#63000000"
+                    app:layout_constraintTop_toBottomOf="@id/tvInvNumberLabel" />
+
+                <TextView
+                    android:id="@+id/tvBarcodeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/label_barcode"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvBarcode"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvBarcode" />
+
+                <TextView
+                    android:id="@+id/tvBarcode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tvInvNumber"
+                    app:layout_constraintTop_toTopOf="@id/separator11"
+                    tools:text="000000000183100001" />
+
+                <View
+                    android:id="@+id/separator12"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#63000000"
+                    app:layout_constraintTop_toBottomOf="@id/tvBarcode" />
+
+                <TextView
+                    android:id="@+id/tvSerialNumberLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/label_serial_number"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvSerialNumber"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvSerialNumber" />
+
+                <TextView
+                    android:id="@+id/tvSerialNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tvBarcode"
+                    app:layout_constraintTop_toTopOf="@id/separator12"
+                    tools:text="NXVLHER00N035358817600" />
+
+                <View
+                    android:id="@+id/separator13"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#63000000"
+                    app:layout_constraintTop_toBottomOf="@id/tvSerialNumber" />
+
+                <TextView
+                    android:id="@+id/tvTypeAssetLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/label_type_asset"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvTypeAsset"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvTypeAsset" />
+
+                <TextView
+                    android:id="@+id/tvTypeAsset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tvBarcode"
+                    app:layout_constraintTop_toTopOf="@id/separator13"
+                    tools:text="Small price" />
+
+                <View
+                    android:id="@+id/separator14"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#63000000"
+                    app:layout_constraintTop_toBottomOf="@id/tvTypeAsset" />
+
+                <TextView
+                    android:id="@+id/tvCountLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/label_count"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvCount"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvCount" />
+
+                <TextView
+                    android:id="@+id/tvCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tvBarcode"
+                    app:layout_constraintTop_toTopOf="@id/separator14"
+                    tools:text="1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvStateInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:textColor="#000"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvInfo"
+            android:text="@string/label_state_info" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@id/tvStateInfo">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+
+                <TextView
+                    android:id="@+id/tvOrganizationLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/label_organization"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvOrganization"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvOrganization"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tvOperationDate"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="РСГ-Бизнес Сервис ООО" />
+
+                <View
+                    android:id="@+id/separator22"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#63000000"
+                    app:layout_constraintTop_toBottomOf="@id/tvOrganization" />
+
+                <TextView
+                    android:id="@+id/tvStoreLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/label_store"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_Store"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_Store" />
+
+                <TextView
+                    android:id="@+id/tv_Store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tvOperationDate"
+                    app:layout_constraintTop_toTopOf="@id/separator22"
+                    tools:text="Малышева Евгения Николаевна" />
+
+                <View
+                    android:id="@+id/separator23"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#63000000"
+                    app:layout_constraintTop_toBottomOf="@id/tv_Store" />
+
+                <TextView
+                    android:id="@+id/tvCurrentStateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/label_current_state"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvCurrentState"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvCurrentState" />
+
+                <TextView
+                    android:id="@+id/tvCurrentState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tvOperationDate"
+                    app:layout_constraintTop_toTopOf="@id/separator23"
+                    tools:text="Хранение на складе" />
+
+                <View
+                    android:id="@+id/separator21"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#63000000"
+                    app:layout_constraintTop_toBottomOf="@id/tvCurrentState" />
+
+                <TextView
+                    android:id="@+id/tvOperationDateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/label_operation_date"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/tvOperationDate" />
+
+                <TextView
+                    android:id="@+id/tvOperationDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tvOperationDateLabel"
+                    app:layout_constraintTop_toTopOf="@id/separator21"
+                    tools:text="30.01.2021" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvOtherInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/label_other_info"
+            android:textColor="#000"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvState" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvOtherInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@id/tvOtherInfo">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tvInventDateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/label_invent_date"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvInventDate" />
+
+                <TextView
+                    android:id="@+id/tvInventDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tvDateTimeScan"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="10.01.2021" />
+
+                <View
+                    android:id="@+id/separator31"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#63000000"
+                    app:layout_constraintTop_toBottomOf="@id/tvInventDate" />
+
+                <TextView
+                    android:id="@+id/tvExistLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/label_exist"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvExist"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvExist" />
+
+                <TextView
+                    android:id="@+id/tvExist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tvDateTimeScan"
+                    app:layout_constraintTop_toTopOf="@id/separator31"
+                    tools:text="в наличии" />
+
+                <View
+                    android:id="@+id/separator32"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#63000000"
+                    app:layout_constraintTop_toBottomOf="@id/tvExist" />
+
+                <TextView
+                    android:id="@+id/tvInAsuiLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/label_in_asui"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvInAsui"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvInAsui" />
+
+                <TextView
+                    android:id="@+id/tvInAsui"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tvDateTimeScan"
+                    app:layout_constraintTop_toTopOf="@id/separator32"
+                    tools:text="True" />
+
+                <View
+                    android:id="@+id/separator33"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#63000000"
+                    app:layout_constraintTop_toBottomOf="@id/tvInAsui" />
+
+                <TextView
+                    android:id="@+id/tvDateTimeScanLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@string/text_date_time_scan"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvDateTimeScan"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvDateTimeScan" />
+
+                <TextView
+                    android:id="@+id/tvDateTimeScan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="8dp"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tvDateTimeScanLabel"
+                    app:layout_constraintTop_toTopOf="@id/separator33"
+                    tools:text="12.01.2021" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

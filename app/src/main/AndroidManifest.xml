@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
+        android:name=".AsuiScannerApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -11,13 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ASUIScanner"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".SplashScreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:name=".presentation.scanner.ScanningActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".presentation.SplashScreenActivity"
             android:exported="true"
-            android:label="@string/title_activity_splash_screen"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+            android:theme="@style/SplashActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -29,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true" />
     </application>
 

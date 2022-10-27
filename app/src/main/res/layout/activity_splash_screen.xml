@@ -6,7 +6,8 @@
     android:background="@drawable/splash_screen_background"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    tools:context=".SplashScreenActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".presentation.SplashScreenActivity">
 
     <ImageView
         android:id="@+id/SplashScreenImage"

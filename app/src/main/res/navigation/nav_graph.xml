@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/scanner">
+
+    <include app:graph="@navigation/scanner" />
+    <include app:graph="@navigation/history" />
+    <include app:graph="@navigation/settings" />
+
+    <fragment
+        android:id="@+id/infoByBarcodeFragment"
+        android:name="com.ivkornienko.asui.scanner.presentation.productinfo.ProductInfoFragment"
+        android:label="@string/label_information"
+        tools:layout="@layout/fragment_product_info" >
+        <argument
+            android:name="productInfoId"
+            app:argType="long" />
+    </fragment>
+
+</navigation>
+
