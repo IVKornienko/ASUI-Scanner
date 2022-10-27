@@ -65,6 +65,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         if (savedInstanceState == null) viewModel.loadSettings()
     }
 
+
     private fun createMenu() {
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -113,7 +114,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         val login = binding.etLogin1C.text.toString()
         val password = binding.etPassword1C.text.toString()
         func(host, base, name, login, password)
-
     }
 
     private fun observeViewModels() {
