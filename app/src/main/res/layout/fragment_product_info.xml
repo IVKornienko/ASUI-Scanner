@@ -45,15 +45,17 @@
                     android:paddingEnd="8dp"
                     android:text="@string/label_inventory_number"
                     android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvInvNumber"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@id/tvInvNumber" />
 
                 <TextView
                     android:id="@+id/tvInvNumber"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tvInvNumberLabel"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="БСМЦ00001" />
@@ -64,7 +66,7 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="8dp"
                     android:background="#63000000"
-                    app:layout_constraintTop_toBottomOf="@id/tvInvNumberLabel" />
+                    app:layout_constraintTop_toBottomOf="@id/tvInvNumber" />
 
                 <TextView
                     android:id="@+id/tvBarcodeLabel"
@@ -80,10 +82,11 @@
 
                 <TextView
                     android:id="@+id/tvBarcode"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tvInvNumber"
                     app:layout_constraintTop_toTopOf="@id/separator11"
                     tools:text="000000000183100001" />
@@ -110,10 +113,11 @@
 
                 <TextView
                     android:id="@+id/tvSerialNumber"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tvBarcode"
                     app:layout_constraintTop_toTopOf="@id/separator12"
                     tools:text="NXVLHER00N035358817600" />
@@ -130,7 +134,6 @@
                     android:id="@+id/tvTypeAssetLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     android:text="@string/label_type_asset"
@@ -141,10 +144,11 @@
 
                 <TextView
                     android:id="@+id/tvTypeAsset"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tvBarcode"
                     app:layout_constraintTop_toTopOf="@id/separator13"
                     tools:text="Small price" />
@@ -172,11 +176,12 @@
 
                 <TextView
                     android:id="@+id/tvCount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@id/tvBarcode"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/separator14"
                     tools:text="1" />
 
@@ -221,14 +226,14 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@id/tvOrganization"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@id/tvOrganization" />
 
                 <TextView
                     android:id="@+id/tvOrganization"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tvOperationDate"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="РСГ-Бизнес Сервис ООО" />
@@ -255,10 +260,11 @@
 
                 <TextView
                     android:id="@+id/tv_Store"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tvOperationDate"
                     app:layout_constraintTop_toTopOf="@id/separator22"
                     tools:text="Малышева Евгения Николаевна" />
@@ -285,10 +291,11 @@
 
                 <TextView
                     android:id="@+id/tvCurrentState"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tvOperationDate"
                     app:layout_constraintTop_toTopOf="@id/separator23"
                     tools:text="Хранение на складе" />
@@ -309,15 +316,17 @@
                     android:paddingEnd="8dp"
                     android:text="@string/label_operation_date"
                     android:textSize="16sp"
+                    app:layout_constraintTop_toTopOf="@id/tvOperationDate"
                     app:layout_constraintBottom_toBottomOf="@id/tvOperationDate"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/tvOperationDate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tvOperationDateLabel"
                     app:layout_constraintTop_toTopOf="@id/separator21"
                     tools:text="30.01.2021" />
@@ -362,15 +371,16 @@
                     android:text="@string/label_invent_date"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tvInventDate" />
+                    app:layout_constraintBottom_toBottomOf="@id/tvInventDate"
+                    app:layout_constraintTop_toTopOf="@id/tvInventDate"/>
 
                 <TextView
                     android:id="@+id/tvInventDate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@id/tvDateTimeScan"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="10.01.2021" />
 
@@ -396,11 +406,12 @@
 
                 <TextView
                     android:id="@+id/tvExist"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@id/tvDateTimeScan"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/separator31"
                     tools:text="в наличии" />
 
@@ -426,11 +437,12 @@
 
                 <TextView
                     android:id="@+id/tvInAsui"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@id/tvDateTimeScan"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/separator32"
                     tools:text="True" />
 
@@ -456,12 +468,13 @@
 
                 <TextView
                     android:id="@+id/tvDateTimeScan"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/tvDateTimeScanLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/separator33"
                     tools:text="12.01.2021" />
 
