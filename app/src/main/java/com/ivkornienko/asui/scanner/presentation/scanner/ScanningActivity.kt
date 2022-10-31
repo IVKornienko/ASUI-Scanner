@@ -16,7 +16,7 @@ class ScanningActivity : CaptureActivity() {
         binding = ActivityScanningBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        repaintFlashLight(R.drawable.ic_flashlight_on, android.R.color.holo_orange_light)
+        onTorchOff()
 
         if (!hasFlash()) {
             binding.switchFlashlight.visibility = View.GONE

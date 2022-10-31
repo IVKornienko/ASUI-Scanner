@@ -379,7 +379,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/tvDateTimeScan"
+                    app:layout_constraintStart_toEndOf="@id/tvInventDateLabel"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="10.01.2021" />
