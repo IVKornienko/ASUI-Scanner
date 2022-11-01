@@ -10,6 +10,7 @@ data class ApiSettings (
     val url = String.format(FORMAT_URL_SERVICE_1C, host, base, name)
 
     companion object {
+        //const val FORMAT_URL_SERVICE_1C = "https://%s/%s/hs/%s/"
         const val FORMAT_URL_SERVICE_1C = "http://%s/%s/hs/%s/"
         const val DEFAULT_HOST_SERVICE_1C = "localhost"
         const val DEFAULT_BASE_1C = "InventMobile"
