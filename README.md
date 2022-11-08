@@ -9,7 +9,7 @@
 
 Android API не ниже 23.
 
-Используемые бибилотеки и технологии:
+Используемые библиотеки и технологии:
 - ZXing Android Embedded (https://github.com/journeyapps/zxing-android-embedded)
 - Android Jetpack's Navigation
 - Coroutines
